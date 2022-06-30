@@ -1,0 +1,47 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "@babel/preset-react": "^7.13.13",
+        "axios": "^0.21",
+        "bootstrap": "^4.6.0",
+        "eslint": "^8.12.0",
+        "eslint-plugin-react": "^7.29.4",
+        "jquery": "^3.6",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "popper.js": "^1.16.1",
+        "postcss": "^8.1.14",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.32.11",
+        "sass-loader": "^11.0.1"
+    },
+    "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^32.0.0",
+        "@ckeditor/ckeditor5-react": "^3.0.3",
+        "@hookform/resolvers": "^2.8.3",
+        "crypto-js": "^4.1.1",
+        "react-hook-form": "^7.20.4",
+        "react-icons": "^4.3.1",
+        "react-multi-date-picker": "^3.3.0",
+        "react-redux": "^7.2.6",
+        "react-router-dom": "^6.0.2",
+        "react-select": "^5.2.2",
+        "redux": "^4.1.2",
+        "redux-devtools-extension": "^2.13.9",
+        "redux-thunk": "^2.4.0",
+        "simplebar": "^5.3.6",
+        "simplebar-react": "^2.3.6",
+        "yup": "^0.32.11"
+    }
+}
