@@ -22,7 +22,7 @@ class UpdateBookRequest extends FormRequest
         return [
             'id' => 'required|numeric|gt:0',
             'name' => 'required|min:3|max:50',
-            'image' => 'max:50',
+            'image' => 'max:100',
             'description' => 'max:1000',
             'extra_info' => 'max:1000',
             'category_id' => 'required|numeric|gt:0',

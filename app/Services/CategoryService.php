@@ -23,7 +23,14 @@ class CategoryService extends Service
     {
         $categories = Entity::getPagination($title, $page) ?? null;
 
-        return $this->handleGetPagination($categories);
+        return $this->handleGetItems($categories);
+    }
+
+    public function getAll()
+    {
+        $categories = Entity::getAll() ?? null;
+
+        return $this->handleGetItems($categories);
     }
 
     public function store($title)

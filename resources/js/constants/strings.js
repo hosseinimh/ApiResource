@@ -85,7 +85,7 @@ export const sidebar = {
 };
 
 export const loginPage = {
-    title: "Login",
+    _title: "Login",
     description: "Please enter Username and Password.",
     username: "Username",
     password: "Password",
@@ -163,4 +163,19 @@ export const booksPage = {
     category: "Category",
     tags: "Tags",
     searchSubmit: "Search",
+};
+
+export const editBookPage = {
+    _title: "Edit book",
+    name: "Name",
+    namePlaceholder: "Name",
+    image: "Image",
+    description: "Description",
+    descriptionPlaceholder: "Description",
+    extraInfo: "Extra info",
+    extraInfoPlaceholder: "Extra info",
+    categoryId: "Category",
+    tags: "Tags",
+    tagsPlaceholder: "Add tags separated by comma",
+    submitted: "Book edited successfully.",
 };

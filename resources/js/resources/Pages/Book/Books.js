@@ -22,7 +22,7 @@ const Books = () => {
     const layoutState = useSelector((state) => state.layoutReducer);
     const messageState = useSelector((state) => state.messageReducer);
     let entity = new Entity();
-    const columnsCount = 5;
+    const columnsCount = 6;
     const [items, setItems] = useState(null);
     const [item, setItem] = useState(null);
     const [action, setAction] = useState(null);
@@ -126,14 +126,21 @@ const Books = () => {
             </th>
             <th
                 scope="col"
-                style={{ width: "200px", textAlign: "center" }}
+                style={{ width: "180px" }}
             >{`${strings.name} / ${strings.image}`}</th>
             <th scope="col">{`${strings.description} / ${strings.extraInfo}`}</th>
             <th
                 scope="col"
                 style={{
                     width: "150px",
-                    textAlign: "center",
+                }}
+            >
+                {strings.category}
+            </th>
+            <th
+                scope="col"
+                style={{
+                    width: "150px",
                 }}
             >
                 {strings.tags}
@@ -142,7 +149,6 @@ const Books = () => {
                 scope="col"
                 style={{
                     width: "120px",
-                    textAlign: "center",
                 }}
             >
                 {general.actions}
@@ -155,12 +161,32 @@ const Books = () => {
             return items.map((item, index) => (
                 <tr key={item.id}>
                     <td scope="row">{index + 1}</td>
-                    <td>{item.name}</td>
+                    <td>
+                        <p>{item.name}</p>
+                        {item?.image && (
+                            <>
+                                <div className="separator"></div>
+                                <a
+                                    href={`/img/books/${item?.image}`}
+                                    target={"_blank"}
+                                >
+                                    <img
+                                        src={`/img/books/${item?.image}`}
+                                        style={{
+                                            width: "100px",
+                                        }}
+                                    />
+                                </a>
+                            </>
+                        )}
+                    </td>
                     <td>
                         <p>{item.description}</p>
+                        <div className="separator"></div>
                         <p>{item.extraInfo}</p>
                     </td>
-                    <td>{item.tags}</td>
+                    <td>{item.categoryTite}</td>
+                    <td>{item.tagsText}</td>
                     <td>
                         <button
                             type="button"

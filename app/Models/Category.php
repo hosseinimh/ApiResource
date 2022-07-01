@@ -30,6 +30,11 @@ class Category extends Model
         return self::where('title', 'LIKE', '%' . $title . '%')->orderBy('title', 'ASC')->orderBy('id', 'ASC')->get();
     }
 
+    public static function getAll()
+    {
+        return self::orderBy('title', 'ASC')->orderBy('id', 'ASC')->get();
+    }
+
     public static function getCategoriesCount()
     {
         return self::count();

@@ -17,7 +17,7 @@ class Service
         return $this->handleError();
     }
 
-    protected function handleGetPagination($items)
+    protected function handleGetItems($items)
     {
         if ($items) {
             return $this->handleOK(['items' => $this->entityResource::collection($items)]);

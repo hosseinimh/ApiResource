@@ -110,7 +110,7 @@ function Sidebar() {
                 >
                     <svg className="nav-icon">
                         <use
-                            xlinkHref={`${vendorsPath}/@coreui/icons/svg/free.svg#cil-group`}
+                            xlinkHref={`${vendorsPath}/@coreui/icons/svg/free.svg#cil-layers`}
                         ></use>
                     </svg>
                     {strings.categories}
@@ -123,7 +123,7 @@ function Sidebar() {
                 >
                     <svg className="nav-icon">
                         <use
-                            xlinkHref={`${vendorsPath}/@coreui/icons/svg/free.svg#cil-group`}
+                            xlinkHref={`${vendorsPath}/@coreui/icons/svg/free.svg#cil-description`}
                         ></use>
                     </svg>
                     {strings.books}

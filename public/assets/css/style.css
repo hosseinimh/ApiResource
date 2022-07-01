@@ -8087,6 +8087,14 @@ html:not([dir="rtl"]) .sidebar-close {
     filter: invert(96%) sepia(9%) saturate(296%) hue-rotate(159deg)
         brightness(94%) contrast(96%);
 }
+
+div.separator {
+    background-color: var(--cui-table-border-color);
+    height: 1px;
+    box-shadow: inset 0 0 0 9999px var(--cui-table-accent-bg);
+    margin-bottom: 1rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .sidebar-nav .nav-icon {
         transition: none;
@@ -10683,6 +10691,28 @@ li.page-item,
 
 .navbar-light .navbar-nav .nav-item.last a:hover {
     transform: scale(1.05);
+}
+
+.tag {
+    display: inline-block;
+    align-items: center;
+    margin: 7px 0;
+    margin-right: 10px;
+    padding: 0 10px;
+    padding-right: 5px;
+    border: 1px solid #9da5b1;
+    border-radius: 5px;
+    background-color: #9da5b1;
+    white-space: nowrap;
+    color: white;
+}
+
+.tag button {
+    padding: 6px;
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+    color: white;
 }
 
 @media (min-width: 576px) {

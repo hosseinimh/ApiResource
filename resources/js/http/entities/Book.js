@@ -27,8 +27,11 @@ export class Book extends Entity {
         data.append("image", image);
         data.append("description", description);
         data.append("extraInfo", extraInfo);
-        data.append("categoryId", categoryId);
-        data.append("tags", tags);
+        data.append("category_id", categoryId);
+
+        for (var i = 0; i < tags?.length; i++) {
+            data.append("tags[]", tags[i]);
+        }
 
         return await this.handlePostFile(API_URLS.STORE_BOOK, data);
     }
@@ -41,8 +44,11 @@ export class Book extends Entity {
         data.append("image", image);
         data.append("description", description);
         data.append("extraInfo", extraInfo);
-        data.append("categoryId", categoryId);
-        data.append("tags", tags);
+        data.append("category_id", categoryId);
+
+        for (var i = 0; i < tags?.length; i++) {
+            data.append("tags[]", tags[i]);
+        }
 
         return await this.handlePostFile(API_URLS.UPDATE_BOOK, data);
     }

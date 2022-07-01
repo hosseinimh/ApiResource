@@ -10,4 +10,11 @@ return [
     'loading' => 'Please wait ...',
     'page_numeric' => 'Page should only contain numbers.',
     'page_gt' => 'Page should be greater than zero.',
+    'uploaded_undefined' => 'Undefined',
+    'uploaded_1' => 'File uploaded successfully.',
+    'uploaded_2' => 'Storing file error.',
+    'uploaded_3' => 'Uploading file error.',
+    'uploaded_4' => 'File type is invalid.',
+    'uploaded_5' => 'Uploaded file was not found.',
+    'uploaded_6' => 'Server error on uploading file.',
 ];

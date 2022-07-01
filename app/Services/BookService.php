@@ -25,38 +25,53 @@ class BookService extends Service
         $categoryId = ($categoryId = intval($categoryId)) > 0 ? $categoryId : 0;
         $books = Entity::getPagination($name, $categoryId, $page) ?? null;
 
-        return $this->handleGetPagination($books);
+        return $this->handleGetItems($books);
     }
 
-    public function store($name, $image, $description, $extraInfo, $categoryId, $tags)
+    public function store($name, $description, $extraInfo, $categoryId, $tags)
     {
         $tags = (is_array($tags) && count($tags) > 0) ? implode('#', $tags) : null;
         $data = [
             'name' => $name,
-            'image' => $image,
+            'image' => null,
             'description' => $description,
             'extraInfo' => $extraInfo,
             'categoryId' => $categoryId,
             'tags' => $tags,
         ];
-        $result = Entity::create($data);
+        $book = Entity::create($data);
+        $result = $this->handleStore($book);
 
-        return $this->handleStore($result);
+        if ($book) {
+            $result['entity'] = $book;
+        }
+
+        return $result;
     }
 
-    public function update($categoryId, $title)
+    public function update($bookId, $name, $description, $extraInfo, $categoryId, $tags)
     {
-        $category = Entity::get($categoryId);
+        $book = Entity::get($bookId);
 
-        if (!$category) {
+        if (!$book) {
             return $this->handleItemNotFound();
         }
 
+        $tags = (is_array($tags) && count($tags) > 0) ? '#' . implode('#', $tags) : null;
         $data = [
-            'title' => $title,
+            'name' => $name,
+            'description' => $description,
+            'extraInfo' => $extraInfo,
+            'categoryId' => $categoryId,
+            'tags' => $tags,
         ];
-        $result = $category->update($data);
+        $updated = $book->update($data);
+        $result = $this->handleUpdate($updated);
 
-        return $this->handleUpdate($result);
+        if ($updated) {
+            $result['entity'] = $book;
+        }
+
+        return $result;
     }
 }

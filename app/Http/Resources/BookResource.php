@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Constants\UploadedFile;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource
@@ -16,11 +17,17 @@ class BookResource extends JsonResource
             'extraInfo' => $this->extra_info ?? null,
             'categoryId' => intval($this->category_id),
             'categoryTite' => $this->category->title,
-            'tags' => $this->tags ? $this->handleTags($this->tags) : null,
+            'tags' => $this->tags ? $this->getTagsArray($this->tags) : null,
+            'tagsText' => $this->tags ? $this->getTagsText($this->tags) : null,
         ];
     }
 
-    private function handleTags($tags)
+    private function getTagsArray($tags)
+    {
+        return array_filter(explode('#', $tags));
+    }
+
+    private function getTagsText($tags)
     {
         return trim(str_replace('#', ' #', $tags));
     }

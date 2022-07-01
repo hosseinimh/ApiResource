@@ -1,5 +1,6 @@
 import { MESSAGE_TYPES } from "./messageTypes";
 import { MESSAGE_CODES } from "./messageCodes";
+import { UPLOADED_FILE } from "./UploadedFile";
 
 import {
     SERVER_URL,
@@ -40,4 +41,5 @@ export {
     brandPath,
     MESSAGE_TYPES,
     MESSAGE_CODES,
+    UPLOADED_FILE,
 };

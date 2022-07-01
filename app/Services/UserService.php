@@ -26,7 +26,7 @@ class UserService extends Service
     {
         $users = Entity::getPagination($username, $nameFamily, $nameFamily, $page) ?? null;
 
-        return $this->handleGetPagination($users);
+        return $this->handleGetItems($users);
     }
 
     public function update($userId, $name, $family)
