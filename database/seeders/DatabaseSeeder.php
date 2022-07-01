@@ -18,24 +18,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Artisan::call('migrate:fresh');
-        $this->command->info('Tables created successfully.');
+        $this->command->info('Database tables created successfully.');
         $this->command->info('');
 
-        $userData = [
-            'username' => '915529',
-            'password' => '1234',
-            'name' => 'Mahmoud',
-            'family' => 'Hosseini',
-        ];
-
-        User::create($userData);
+        User::factory()->create();
         $this->command->info('1 user created successfully.');
-        Category::factory()->count(5)->create()->each(function ($category) {
-            Book::factory()
-                ->count(3)
-                ->for($category)
-                ->create();
-        });
+
+        Category::factory()->count(5)
+            ->has(Book::factory()->count(3))
+            ->create();
         $this->command->info('5 categories created successfully.');
         $this->command->info('15 books created successfully.');
 

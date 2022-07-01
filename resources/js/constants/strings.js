@@ -77,6 +77,7 @@ export const sidebar = {
     editProfile: "Edit profile",
     users: "Users",
     categories: "Categories",
+    books: "Books",
     changePassword: "Change password",
     editUser: "Edit profile",
     viewUser: "View profile",
@@ -151,4 +152,15 @@ export const editCategoryPage = {
     title: "Title",
     titlePlaceholder: "Title",
     submitted: "Category edited successfully.",
+};
+
+export const booksPage = {
+    _title: "Books",
+    name: "Name",
+    image: "Image",
+    description: "Description",
+    extraInfo: "Extra info",
+    category: "Category",
+    tags: "Tags",
+    searchSubmit: "Search",
 };

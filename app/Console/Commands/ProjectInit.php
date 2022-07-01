@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 class ProjectInit extends Command
@@ -23,7 +24,7 @@ class ProjectInit extends Command
      *
      * @var string
      */
-    protected $description = 'Initial project with fake data';
+    protected $description = 'Initialize the project with fake data ...';
 
     /**
      * Create a new command instance.
@@ -42,26 +43,23 @@ class ProjectInit extends Command
      */
     public function handle()
     {
-        Artisan::call('migrate:fresh');
-        $this->info('Tables created successfully.');
+        $this->comment($this->description);
         $this->info('');
 
-        $userData = [
-            'username' => '123456',
-            'password' => '1234',
-            'name' => 'Mahmoud',
-            'family' => 'Hosseini',
-        ];
+        Artisan::call('storage:link');
+        $this->info('Symbolic links created successfully.');
+        $this->info('');
 
-        User::create($userData);
+        Artisan::call('migrate:fresh');
+        $this->info('Database tables created successfully.');
+        $this->info('');
+
+        User::factory()->create();
         $this->info('1 user created successfully.');
 
-        Category::factory()->count(5)->create()->each(function ($category) {
-            Book::factory()
-                ->count(3)
-                ->for($category)
-                ->create();
-        });
+        Category::factory()->count(5)
+            ->has(Book::factory()->count(3))
+            ->create();
         $this->info('5 categories created successfully.');
         $this->info('15 books created successfully.');
 
@@ -70,6 +68,9 @@ class ProjectInit extends Command
         $this->line('Username: 123456');
         $this->line('Password: 1234');
         $this->info('****');
+        $this->info('');
+
+        $this->comment('READY TO GO!');
         $this->info('');
 
         return Command::SUCCESS;

@@ -30,9 +30,13 @@ class Book extends Model
         return self::where('id', $id)->first();
     }
 
-    public static function getPagination($title, $page)
+    public static function getPagination($name, $categoryId, $page)
     {
-        return self::where('title', 'LIKE', '%' . $title . '%')->orderBy('title', 'ASC')->orderBy('id', 'ASC')->get();
+        if ($categoryId === 0) {
+            return self::where('name', 'LIKE', '%' . $name . '%')->orderBy('name', 'ASC')->orderBy('id', 'ASC')->get();
+        }
+
+        return self::where('name', 'LIKE', '%' . $name . '%')->where('category_id', $categoryId)->orderBy('name', 'ASC')->orderBy('id', 'ASC')->get();
     }
 
     public static function getBooksCount()

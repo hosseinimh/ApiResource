@@ -78,6 +78,10 @@ function AuthRoute() {
                                 element={<Pages.Categories />}
                             />
                             <Route
+                                path={`${basePath}/books`}
+                                element={<Pages.Books />}
+                            />
+                            <Route
                                 path={`${basePath}`}
                                 element={<Pages.Dashboard />}
                             />

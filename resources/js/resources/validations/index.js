@@ -5,6 +5,7 @@ import changePasswordSchema from "./User/ChangePasswordSchema";
 import categorySearchSchema from "./Category/CategorySearchSchema";
 import addCategorySchema from "./Category/AddCategorySchema";
 import editCategorySchema from "./Category/EditCategorySchema";
+import bookSearchSchema from "./Book/BookSearchSchema";
 
 export {
     loginSchema,
@@ -14,4 +15,5 @@ export {
     categorySearchSchema,
     addCategorySchema,
     editCategorySchema,
+    bookSearchSchema,
 };

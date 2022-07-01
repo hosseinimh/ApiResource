@@ -10,7 +10,7 @@ $localhost = 1;
 if ($localhost === 1) {
     $framework = '//../';
 } else {
-    $framework = '//../../frm/';
+    $framework = '//../frm/';
 }
 
 if (file_exists(__DIR__ . $framework . 'storage/framework/maintenance.php')) {

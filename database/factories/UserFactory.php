@@ -15,24 +15,10 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'username' => $this->faker->username(),
-            'password' => '1324',
-            'name' => $this->faker->name(),
-            'family' => Str::random(7),
+            'username' => '123456',
+            'password' => '1234',
+            'name' => 'Mahmoud',
+            'family' => 'Hosseini',
         ];
-    }
-
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
     }
 }

@@ -16,7 +16,12 @@ class BookResource extends JsonResource
             'extraInfo' => $this->extra_info ?? null,
             'categoryId' => intval($this->category_id),
             'categoryTite' => $this->category->title,
-            'tags' => $this->tags ?? null,
+            'tags' => $this->tags ? $this->handleTags($this->tags) : null,
         ];
+    }
+
+    private function handleTags($tags)
+    {
+        return trim(str_replace('#', ' #', $tags));
     }
 }

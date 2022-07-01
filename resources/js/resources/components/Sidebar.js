@@ -115,6 +115,19 @@ function Sidebar() {
                     </svg>
                     {strings.categories}
                 </Link>
+                <Link
+                    className={
+                        page === "Books" ? "nav-link active" : "nav-link"
+                    }
+                    to={`${basePath}/books`}
+                >
+                    <svg className="nav-icon">
+                        <use
+                            xlinkHref={`${vendorsPath}/@coreui/icons/svg/free.svg#cil-group`}
+                        ></use>
+                    </svg>
+                    {strings.books}
+                </Link>
             </li>
         </>
     );

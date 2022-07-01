@@ -7,6 +7,7 @@ import ChangePassword from "./User/ChangePassword";
 import Categories from "./Category/Categories";
 import AddCategory from "./Category/AddCategory";
 import EditCategory from "./Category/EditCategory";
+import Books from "./Book/Books";
 
 export {
     Dashboard,
@@ -18,4 +19,5 @@ export {
     Categories,
     AddCategory,
     EditCategory,
+    Books,
 };
