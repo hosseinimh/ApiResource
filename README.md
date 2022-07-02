@@ -147,12 +147,19 @@ Project is based on MVC architecture, which Laravel recommends.
 It uses Models, Controllers and js files as Views.
 
 Coding schema of project is shown on picture below:
+
 ![Logo](https://api-resource.hosseinimh.com/github/img/architecture.jpg)
 
+Project uses API Resources as Repositories to standardize responses.
+It also utilize Laravel ORM Laravel, Eloquents, for readabilty and integration.
+
 #### JWT Tokens
-As API calls are stateless, so you can't use sessions to identify users.
+As API calls are stateless, sessions can't be used to identify users.
 I use `JWT tokens` to authenticate and authorize users.
 On backend, I use `middlewares` to handle users accessing endpoint routes.
+
+#### UI
+Project utilizes [coreui](https://coreui.io/) which is a Bootstrap Admin Dashboard Template, and I made some changes.
 
 
 ## Authors
