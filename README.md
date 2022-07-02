@@ -148,7 +148,7 @@ It uses Models, Controllers and js files as Views.
 
 Coding schema of project is shown on picture below:
 
-![Logo](https://api-resource.hosseinimh.com/github/img/architecture.jpg)
+![Logo](https://api-resource.hosseinimh.com/github/img/architecture1.jpg)
 
 Project uses API Resources as Repositories to standardize responses.
 It also utilize Laravel ORM Laravel, Eloquents, for readabilty and integration.
