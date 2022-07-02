@@ -25,6 +25,7 @@ export const CATEGORIES_API_URLS = {
     FETCH_ALL_CATEGORIES: `${SERVER_URL}/categories/get_all`,
     STORE_CATEGORY: `${SERVER_URL}/categories/store`,
     UPDATE_CATEGORY: `${SERVER_URL}/categories/update`,
+    REMOVE_CATEGORY: `${SERVER_URL}/categories/remove`,
 };
 
 export const BOOKS_API_URLS = {
@@ -32,4 +33,5 @@ export const BOOKS_API_URLS = {
     FETCH_BOOKS: `${SERVER_URL}/books`,
     STORE_BOOK: `${SERVER_URL}/books/store`,
     UPDATE_BOOK: `${SERVER_URL}/books/update`,
+    REMOVE_BOOK: `${SERVER_URL}/books/remove`,
 };

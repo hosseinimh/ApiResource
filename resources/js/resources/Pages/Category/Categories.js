@@ -4,19 +4,27 @@ import { Navigate } from "react-router";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { BsPencilFill } from "react-icons/bs";
+import { BsFillFileExcelFill, BsPencilFill } from "react-icons/bs";
 
 import { Page } from "../_layout";
 import { Category as Entity } from "../../../http/entities";
 import { categoriesPage as strings, general } from "../../../constants/strings";
 import { Table } from "../../components";
-import { MESSAGE_TYPES, imgPath, basePath } from "../../../constants";
+import {
+    MESSAGE_TYPES,
+    imgPath,
+    basePath,
+    MESSAGE_CODES,
+} from "../../../constants";
 import { categorySearchSchema as schema } from "../../validations";
 import {
     setLoadingAction,
     setTitleAction,
 } from "../../../state/layout/layoutActions";
-import { setMessageAction } from "../../../state/message/messageActions";
+import {
+    clearMessageAction,
+    setMessageAction,
+} from "../../../state/message/messageActions";
 
 const Categories = () => {
     const dispatch = useDispatch();
@@ -41,12 +49,8 @@ const Categories = () => {
         fillForm(data);
     };
 
-    const fillForm = async (data = null) => {
-        dispatch(setLoadingAction(true));
-
+    const fetchCategories = async (data = null) => {
         let result = await entity.getPagination(data?.title);
-
-        dispatch(setLoadingAction(false));
 
         if (result === null) {
             setItems(null);
@@ -62,6 +66,13 @@ const Categories = () => {
         }
 
         setItems(result.items);
+    };
+
+    const fillForm = async (data = null) => {
+        dispatch(setLoadingAction(true));
+
+        await fetchCategories(data);
+
         dispatch(setLoadingAction(false));
     };
 
@@ -83,6 +94,99 @@ const Categories = () => {
             setIsCurrent(false);
         };
     }, []);
+
+    const handleRemove = async (id) => {
+        const categoryId = id ?? item;
+
+        if (categoryId === null) {
+            return;
+        }
+
+        dispatch(setLoadingAction(true));
+        dispatch(clearMessageAction());
+
+        let result = await entity.remove(categoryId);
+
+        if (result === null) {
+            dispatch(setLoadingAction(false));
+            dispatch(
+                setMessageAction(
+                    entity.errorMessage,
+                    MESSAGE_TYPES.ERROR,
+                    entity.errorCode
+                )
+            );
+
+            return;
+        }
+
+        dispatch(
+            setMessageAction(
+                strings.categoryRemoved,
+                MESSAGE_TYPES.SUCCESS,
+                MESSAGE_CODES.OK
+            )
+        );
+
+        await fetchCategories();
+        window.scrollTo(0, 0);
+
+        dispatch(setLoadingAction(false));
+    };
+
+    const renderRemoveModal = () => (
+        <div
+            className="modal fade"
+            id="removeModal"
+            tabIndex={"-1"}
+            aria-labelledby="removeModal"
+            aria-hidden="true"
+        >
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5
+                            className="modal-title"
+                            id="exampleModalCenterTitle"
+                        >
+                            {strings.removeCategoryModalTitle}
+                        </h5>
+                        <button
+                            className="btn-close"
+                            type="button"
+                            data-coreui-dismiss="modal"
+                            aria-label="Close"
+                            disabled={layoutState?.loading}
+                        ></button>
+                    </div>
+                    <div className="modal-body">
+                        <p className="mb-0">
+                            {strings.removeCategoryModalBody1}
+                        </p>
+                        <p>{strings.removeCategoryModalBody2}</p>
+                    </div>
+                    <div className="modal-footer">
+                        <button
+                            className="btn btn-primary"
+                            type="button"
+                            data-coreui-dismiss="modal"
+                            onClick={() => handleRemove()}
+                            disabled={layoutState?.loading}
+                        >
+                            {strings.removeConfirm}
+                        </button>
+                        <button
+                            className="btn btn-secondary"
+                            type="button"
+                            data-coreui-dismiss="modal"
+                        >
+                            {strings.removeCancel}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 
     const renderFilterSection = () => (
         <div className="card mb-4">
@@ -153,6 +257,18 @@ const Categories = () => {
                         >
                             <BsPencilFill />
                         </button>
+                        <button
+                            type="button"
+                            className="btn btn-secondary ml-2"
+                            title={general.remove}
+                            data-coreui-toggle="modal"
+                            data-coreui-target="#removeModal"
+                            data-coreui-tag={item.id}
+                            onClick={() => setItem(item.id)}
+                            disabled={layoutState?.loading}
+                        >
+                            <BsFillFileExcelFill />
+                        </button>
                     </td>
                 </tr>
             ));
@@ -214,6 +330,7 @@ const Categories = () => {
                     renderItems={renderItems}
                 />
             </div>
+            {renderRemoveModal()}
         </Page>
     );
 };

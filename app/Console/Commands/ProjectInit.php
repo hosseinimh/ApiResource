@@ -62,7 +62,7 @@ class ProjectInit extends Command
             }
         }
 
-        $this->info('Uploaded files deleted successfully.');
+        $this->info('Old uploaded files deleted successfully.');
         $this->info('');
 
         Artisan::call('storage:link');

@@ -1,66 +1,152 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Logo](https://api-resource.hosseinimh.com/github/img/logo.svg)
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# API Resource
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+A simple project powered by Php Laravel framework as backend and React.Js and Bootstrap framework as frontend.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## When to use
+API Resource is an online REST API that you can use whenever you need some fake data. It can be on a host, as a Wordpress plugin or to test things locally.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation
+- Server
+To run on server, move all folders and files except `public` to a new folder, named `frm` for example.
+It should be one level upper than `public` folder for security reasons.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Open `.env` file in `frm` folder, and set database name and its username and password of your database connection:
+```bash
+DB_DATABASE=api_resource
+DB_USERNAME=root
+DB_PASSWORD=123456
+```
 
-## Laravel Sponsors
+Move content of `public` folder to `public_html`.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- Server & localhost
 
-### Premium Partners
+Set `$localhost = 0;`  in `index.php`, if you're running project on server:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+```bash
+  $localhost = 0; // set 1 if you're running project on localhost, otherwise 0
+  $framework = $localhost === 1 ? '//../' : '//../frm/';
+```
 
-## Contributing
+#### Initialization
+If you're on server, go to `/initialize`:
+```bash
+  GET /initialize
+```
+If you're on localhost, you have two options to initialize project:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Go to `/initialize`
+```bash
+  GET /initialize
+```
+ Or simply run custom console command:
+  ```bash
+  php artisan project:init
+```
+If everything goes well, the output will be like this:
+```bash
+Cache cleared successfully.
+Old uploaded files deleted successfully.
+Symbolic links created successfully.
+Database tables created successfully.
+1 user created successfully.
+5 categories created successfully.
+15 books created successfully.
 
-## Code of Conduct
+****
+Username: admin
+Password: 1234
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+****
+READY TO GO!
+```
 
-## Security Vulnerabilities
+If you want not to reset your database data and project initialization anymore, just remove this line in `routes/web.php`:
+```bash
+  Route::get('initialize', [Controller::class, 'initialize']);
+```
+## API Reference
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Resources
+#### Get all categories
 
-## License
+```http
+  GET /api/categories
+```
+Returns list of all categories.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### Get category
+Returns a specific category.
+
+```http
+  GET /api/categories/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `integer` | **Required**. Id of category to fetch |
+
+#### Get all books
+Returns list of all books.
+```http
+  GET /api/books
+```
+
+#### Get book
+Returns a specific category.
+
+```http
+  GET /api/books/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `integer` | **Required**. Id of book to fetch |
+
+**Note:**
+Resources have relations: Categories have many books. Below are tables schema:
+
+![Logo](https://api-resource.hosseinimh.com/github/img/schema.jpg)
+
+### Routes
+GET HTTP method is supported.
+## Authors
+
+- [@hosseinimh](https://www.github.com/hosseinimh)
+
+API Resource was designed, implemented, documented, and maintained by Mahmouud Hosseini, a Full Stack developer.
+
+- Email: hosseinimh@gmail.com
+
+- Twitter: @hosseinimh
+## Badges
+
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+
+
+## 🔗 Links
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://hosseinimh.com/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/)
+[![twitter](https://img.shields.io/badge/twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/)
+
+
+## 🚀 About Me
+![Logo](https://api-resource.hosseinimh.com/github/img/hosseinimh.jpg)
+
+Mahmoud Hosseini
+
+I'm a Full Stack developer coding Php Laravel, React.JS, C#, ...
+
+Learning programming for more 18 years.
+
+
+## 🛠 Skills
+Javascript, HTML, CSS, Sass, Bootstrap, Material UI, React.JS, React native, PHP Laravel, PHP Codeigniter, Wordpress, ...
+

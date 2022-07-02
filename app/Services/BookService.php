@@ -74,4 +74,22 @@ class BookService extends Service
 
         return $result;
     }
+
+    public function remove($bookId)
+    {
+        $book = Entity::get($bookId);
+
+        if (!$book) {
+            return $this->handleItemNotFound();
+        }
+
+        return $this->handleDelete($this->removeByEntity($book));
+    }
+
+    public function removeByEntity(Entity $book)
+    {
+        @unlink(storage_path('app') . '/public/img/books/' . $book->image);
+
+        return $this->handleDelete($book->delete());
+    }
 }

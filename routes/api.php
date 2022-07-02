@@ -22,11 +22,13 @@ Route::middleware(['cors', 'jwt', 'user'])->group(function () {
     Route::post('categories/show', [CategoryController::class, 'show']);
     Route::post('categories/store', [CategoryController::class, 'store']);
     Route::post('categories/update', [CategoryController::class, 'update']);
+    Route::post('categories/remove', [CategoryController::class, 'remove']);
 
     Route::post('books', [BookController::class, 'index']);
     Route::post('books/show', [BookController::class, 'show']);
     Route::post('books/store', [BookController::class, 'store']);
     Route::post('books/update', [BookController::class, 'update']);
+    Route::post('books/remove', [BookController::class, 'remove']);
 });
 
 // not auth users

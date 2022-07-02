@@ -6,12 +6,7 @@ use Illuminate\Http\Request;
 define('LARAVEL_START', microtime(true));
 
 $localhost = 1;
-
-if ($localhost === 1) {
-    $framework = '//../';
-} else {
-    $framework = '//../frm/';
-}
+$framework = $localhost === 1 ? '//../' : '//../frm/';
 
 if (file_exists(__DIR__ . $framework . 'storage/framework/maintenance.php')) {
     require __DIR__ . $framework . 'storage/framework/maintenance.php';

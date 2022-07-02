@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\GetBookRequest;
 use App\Http\Requests\Book\IndexBooksRequest;
+use App\Http\Requests\Book\RemoveBookRequest;
 use App\Http\Requests\Book\StoreBookRequest;
 use App\Http\Requests\Book\UpdateBookRequest;
 use App\Services\CategoryService;
@@ -55,5 +56,10 @@ class BookController extends Controller
         }
 
         return $this->handleJsonResponse($result);
+    }
+
+    public function remove(RemoveBookRequest $request)
+    {
+        return $this->handleJsonResponse($this->service->remove($request->id));
     }
 }

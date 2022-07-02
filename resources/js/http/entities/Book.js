@@ -52,4 +52,10 @@ export class Book extends Entity {
 
         return await this.handlePostFile(API_URLS.UPDATE_BOOK, data);
     }
+
+    async remove(id) {
+        return await this.handlePostWithToken(API_URLS.REMOVE_BOOK, {
+            id: id,
+        });
+    }
 }

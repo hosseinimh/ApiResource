@@ -58,4 +58,24 @@ class CategoryService extends Service
 
         return $this->handleUpdate($result);
     }
+
+    public function remove($categoryId)
+    {
+        $category = Entity::get($categoryId);
+
+        if (!$category) {
+            return $this->handleItemNotFound();
+        }
+
+        $bookService = new BookService();
+        $books = $category->books();
+
+        if ($books) {
+            foreach ($books as $book) {
+                $bookService->removeByEntity($book);
+            }
+        }
+
+        return $this->handleDelete($category->delete());
+    }
 }

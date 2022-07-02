@@ -139,6 +139,13 @@ export const categoriesPage = {
     title: "Title",
     searchSubmit: "Search",
     addCategory: "Add category",
+    removeCategoryModalTitle: "Delete category",
+    removeCategoryModalBody1: "Are you sure you want to delete this category?",
+    removeCategoryModalBody2:
+        "All books related to this category will also be deleted.",
+    categoryRemoved: "Category deleted successfully.",
+    removeConfirm: "Yes",
+    removeCancel: "No",
 };
 
 export const addCategoryPage = {
@@ -165,6 +172,11 @@ export const booksPage = {
     tags: "Tags",
     searchSubmit: "Search",
     addBook: "Add book",
+    removeBookModalTitle: "Delete book",
+    removeBookModalBody: "Are you sure you want to delete this book?",
+    bookRemoved: "Book deleted successfully.",
+    removeConfirm: "Yes",
+    removeCancel: "No",
 };
 
 export const addBookPage = {

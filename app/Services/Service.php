@@ -44,6 +44,15 @@ class Service
         return $this->handleError(['_error' => __('general.update_error'), '_errorCode' => ErrorCodes::SERVER_ERROR]);
     }
 
+    protected function handleDelete($result)
+    {
+        if ($result) {
+            return $this->handleOK();
+        }
+
+        return $this->handleError(['_error' => __('general.delete_error'), '_errorCode' => ErrorCodes::SERVER_ERROR]);
+    }
+
     protected function handleItemNotFound()
     {
         return $this->handleError(['_error' => __('general.item_not_found'), '_errorCode' => ErrorCodes::ITEM_NOT_FOUND]);

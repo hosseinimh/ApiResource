@@ -35,4 +35,10 @@ export class Category extends Entity {
             title: title,
         });
     }
+
+    async remove(id) {
+        return await this.handlePostWithToken(API_URLS.REMOVE_CATEGORY, {
+            id: id,
+        });
+    }
 }

@@ -3103,13 +3103,15 @@ var CATEGORIES_API_URLS = {
   FETCH_CATEGORIES: "".concat(SERVER_URL, "/categories"),
   FETCH_ALL_CATEGORIES: "".concat(SERVER_URL, "/categories/get_all"),
   STORE_CATEGORY: "".concat(SERVER_URL, "/categories/store"),
-  UPDATE_CATEGORY: "".concat(SERVER_URL, "/categories/update")
+  UPDATE_CATEGORY: "".concat(SERVER_URL, "/categories/update"),
+  REMOVE_CATEGORY: "".concat(SERVER_URL, "/categories/remove")
 };
 var BOOKS_API_URLS = {
   FETCH_BOOK: "".concat(SERVER_URL, "/books/show"),
   FETCH_BOOKS: "".concat(SERVER_URL, "/books"),
   STORE_BOOK: "".concat(SERVER_URL, "/books/store"),
-  UPDATE_BOOK: "".concat(SERVER_URL, "/books/update")
+  UPDATE_BOOK: "".concat(SERVER_URL, "/books/update"),
+  REMOVE_BOOK: "".concat(SERVER_URL, "/books/remove")
 };
 
 /***/ }),
@@ -3356,7 +3358,13 @@ var categoriesPage = {
   _title: "Categories",
   title: "Title",
   searchSubmit: "Search",
-  addCategory: "Add category"
+  addCategory: "Add category",
+  removeCategoryModalTitle: "Delete category",
+  removeCategoryModalBody1: "Are you sure you want to delete this category?",
+  removeCategoryModalBody2: "All books related to this category will also be deleted.",
+  categoryRemoved: "Category deleted successfully.",
+  removeConfirm: "Yes",
+  removeCancel: "No"
 };
 var addCategoryPage = {
   _title: "Add category",
@@ -3379,7 +3387,12 @@ var booksPage = {
   category: "Category",
   tags: "Tags",
   searchSubmit: "Search",
-  addBook: "Add book"
+  addBook: "Add book",
+  removeBookModalTitle: "Delete book",
+  removeBookModalBody: "Are you sure you want to delete this book?",
+  bookRemoved: "Book deleted successfully.",
+  removeConfirm: "Yes",
+  removeCancel: "No"
 };
 var addBookPage = {
   _title: "Add book",
@@ -3648,6 +3661,36 @@ var Book = /*#__PURE__*/function (_Entity) {
 
       return update;
     }()
+  }, {
+    key: "remove",
+    value: function () {
+      var _remove = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(id) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.BOOKS_API_URLS.REMOVE_BOOK, {
+                  id: id
+                });
+
+              case 2:
+                return _context5.abrupt("return", _context5.sent);
+
+              case 3:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
+      }));
+
+      function remove(_x17) {
+        return _remove.apply(this, arguments);
+      }
+
+      return remove;
+    }()
   }]);
 
   return Book;
@@ -3863,6 +3906,36 @@ var Category = /*#__PURE__*/function (_Entity) {
       }
 
       return update;
+    }()
+  }, {
+    key: "remove",
+    value: function () {
+      var _remove = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(id) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.REMOVE_CATEGORY, {
+                  id: id
+                });
+
+              case 2:
+                return _context6.abrupt("return", _context6.sent);
+
+              case 3:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6, this);
+      }));
+
+      function remove(_x6) {
+        return _remove.apply(this, arguments);
+      }
+
+      return remove;
     }()
   }]);
 
@@ -5194,7 +5267,7 @@ var Books = function Books() {
     fillForm(data);
   };
 
-  var fillForm = /*#__PURE__*/function () {
+  var fetchBooks = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
       var data,
           result,
@@ -5204,16 +5277,14 @@ var Books = function Books() {
           switch (_context.prev = _context.next) {
             case 0:
               data = _args.length > 0 && _args[0] !== undefined ? _args[0] : null;
-              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
-              _context.next = 4;
+              _context.next = 3;
               return entity.getPagination(data === null || data === void 0 ? void 0 : data.name, data === null || data === void 0 ? void 0 : data.categoryId);
 
-            case 4:
+            case 3:
               result = _context.sent;
-              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
 
               if (!(result === null)) {
-                _context.next = 10;
+                _context.next = 8;
                 break;
               }
 
@@ -5221,11 +5292,10 @@ var Books = function Books() {
               dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.setMessageAction)(entity.errorMessage, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, entity.errorCode));
               return _context.abrupt("return");
 
-            case 10:
+            case 8:
               setItems(result.items);
-              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
 
-            case 12:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -5233,8 +5303,37 @@ var Books = function Books() {
       }, _callee);
     }));
 
-    return function fillForm() {
+    return function fetchBooks() {
       return _ref.apply(this, arguments);
+    };
+  }();
+
+  var fillForm = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var data,
+          _args2 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              data = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : null;
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
+              _context2.next = 4;
+              return fetchBooks(data);
+
+            case 4:
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function fillForm() {
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -5254,6 +5353,114 @@ var Books = function Books() {
       setIsCurrent(false);
     };
   }, []);
+
+  var handleRemove = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id) {
+      var bookId, result;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              bookId = id !== null && id !== void 0 ? id : item;
+
+              if (!(bookId === null)) {
+                _context3.next = 3;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 3:
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.clearMessageAction)());
+              _context3.next = 7;
+              return entity.remove(bookId);
+
+            case 7:
+              result = _context3.sent;
+
+              if (!(result === null)) {
+                _context3.next = 12;
+                break;
+              }
+
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.setMessageAction)(entity.errorMessage, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, entity.errorCode));
+              return _context3.abrupt("return");
+
+            case 12:
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.setMessageAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.bookRemoved, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.SUCCESS, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_CODES.OK));
+              _context3.next = 15;
+              return fetchBooks();
+
+            case 15:
+              window.scrollTo(0, 0);
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function handleRemove(_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var renderRemoveModal = function renderRemoveModal() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "modal fade",
+      id: "removeModal",
+      tabIndex: "-1",
+      "aria-labelledby": "removeModal",
+      "aria-hidden": "true",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "modal-dialog modal-dialog-centered",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "modal-content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "modal-header",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h5", {
+              className: "modal-title",
+              id: "exampleModalCenterTitle",
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.removeBookModalTitle
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              className: "btn-close",
+              type: "button",
+              "data-coreui-dismiss": "modal",
+              "aria-label": "Close",
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+            className: "modal-body",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.removeBookModalBody
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "modal-footer",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              className: "btn btn-primary",
+              type: "button",
+              "data-coreui-dismiss": "modal",
+              onClick: function onClick() {
+                return handleRemove();
+              },
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.removeConfirm
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              className: "btn btn-secondary",
+              type: "button",
+              "data-coreui-dismiss": "modal",
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.removeCancel
+            })]
+          })]
+        })
+      })
+    });
+  };
 
   var renderFilterSection = function renderFilterSection() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
@@ -5370,8 +5577,8 @@ var Books = function Books() {
             children: item.categoryTite
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
             children: item.tagsText
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("td", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
               type: "button",
               className: "btn btn-secondary ml-2",
               onClick: function onClick() {
@@ -5380,7 +5587,19 @@ var Books = function Books() {
               title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.edit,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_15__.BsPencilFill, {})
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              type: "button",
+              className: "btn btn-secondary ml-2",
+              title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.remove,
+              "data-coreui-toggle": "modal",
+              "data-coreui-target": "#removeModal",
+              "data-coreui-tag": item.id,
+              onClick: function onClick() {
+                return setItem(item.id);
+              },
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_15__.BsFillFileExcelFill, {})
+            })]
           })]
         }, item.id);
       });
@@ -5443,7 +5662,7 @@ var Books = function Books() {
         renderHeader: renderHeader,
         renderItems: renderItems
       })
-    })]
+    }), renderRemoveModal()]
   });
 };
 
@@ -6262,7 +6481,7 @@ var Categories = function Categories() {
     fillForm(data);
   };
 
-  var fillForm = /*#__PURE__*/function () {
+  var fetchCategories = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
       var data,
           result,
@@ -6272,16 +6491,14 @@ var Categories = function Categories() {
           switch (_context.prev = _context.next) {
             case 0:
               data = _args.length > 0 && _args[0] !== undefined ? _args[0] : null;
-              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
-              _context.next = 4;
+              _context.next = 3;
               return entity.getPagination(data === null || data === void 0 ? void 0 : data.title);
 
-            case 4:
+            case 3:
               result = _context.sent;
-              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
 
               if (!(result === null)) {
-                _context.next = 10;
+                _context.next = 8;
                 break;
               }
 
@@ -6289,11 +6506,10 @@ var Categories = function Categories() {
               dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.setMessageAction)(entity.errorMessage, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, entity.errorCode));
               return _context.abrupt("return");
 
-            case 10:
+            case 8:
               setItems(result.items);
-              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
 
-            case 12:
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -6301,8 +6517,37 @@ var Categories = function Categories() {
       }, _callee);
     }));
 
-    return function fillForm() {
+    return function fetchCategories() {
       return _ref.apply(this, arguments);
+    };
+  }();
+
+  var fillForm = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var data,
+          _args2 = arguments;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              data = _args2.length > 0 && _args2[0] !== undefined ? _args2[0] : null;
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
+              _context2.next = 4;
+              return fetchCategories(data);
+
+            case 4:
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function fillForm() {
+      return _ref2.apply(this, arguments);
     };
   }();
 
@@ -6322,6 +6567,117 @@ var Categories = function Categories() {
       setIsCurrent(false);
     };
   }, []);
+
+  var handleRemove = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id) {
+      var categoryId, result;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              categoryId = id !== null && id !== void 0 ? id : item;
+
+              if (!(categoryId === null)) {
+                _context3.next = 3;
+                break;
+              }
+
+              return _context3.abrupt("return");
+
+            case 3:
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.clearMessageAction)());
+              _context3.next = 7;
+              return entity.remove(categoryId);
+
+            case 7:
+              result = _context3.sent;
+
+              if (!(result === null)) {
+                _context3.next = 12;
+                break;
+              }
+
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.setMessageAction)(entity.errorMessage, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, entity.errorCode));
+              return _context3.abrupt("return");
+
+            case 12:
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.setMessageAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.categoryRemoved, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.SUCCESS, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_CODES.OK));
+              _context3.next = 15;
+              return fetchCategories();
+
+            case 15:
+              window.scrollTo(0, 0);
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(false));
+
+            case 17:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }));
+
+    return function handleRemove(_x) {
+      return _ref3.apply(this, arguments);
+    };
+  }();
+
+  var renderRemoveModal = function renderRemoveModal() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "modal fade",
+      id: "removeModal",
+      tabIndex: "-1",
+      "aria-labelledby": "removeModal",
+      "aria-hidden": "true",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "modal-dialog modal-dialog-centered",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          className: "modal-content",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "modal-header",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("h5", {
+              className: "modal-title",
+              id: "exampleModalCenterTitle",
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.removeCategoryModalTitle
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              className: "btn-close",
+              type: "button",
+              "data-coreui-dismiss": "modal",
+              "aria-label": "Close",
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "modal-body",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+              className: "mb-0",
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.removeCategoryModalBody1
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.removeCategoryModalBody2
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+            className: "modal-footer",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              className: "btn btn-primary",
+              type: "button",
+              "data-coreui-dismiss": "modal",
+              onClick: function onClick() {
+                return handleRemove();
+              },
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.removeConfirm
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              className: "btn btn-secondary",
+              type: "button",
+              "data-coreui-dismiss": "modal",
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.removeCancel
+            })]
+          })]
+        })
+      })
+    });
+  };
 
   var renderFilterSection = function renderFilterSection() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
@@ -6392,8 +6748,8 @@ var Categories = function Categories() {
             children: index + 1
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
             children: item.title
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("td", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("td", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
               type: "button",
               className: "btn btn-secondary ml-2",
               onClick: function onClick() {
@@ -6402,7 +6758,19 @@ var Categories = function Categories() {
               title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.edit,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_15__.BsPencilFill, {})
-            })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+              type: "button",
+              className: "btn btn-secondary ml-2",
+              title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.remove,
+              "data-coreui-toggle": "modal",
+              "data-coreui-target": "#removeModal",
+              "data-coreui-tag": item.id,
+              onClick: function onClick() {
+                return setItem(item.id);
+              },
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_15__.BsFillFileExcelFill, {})
+            })]
           })]
         }, item.id);
       });
@@ -6465,7 +6833,7 @@ var Categories = function Categories() {
         renderHeader: renderHeader,
         renderItems: renderItems
       })
-    })]
+    }), renderRemoveModal()]
   });
 };
 
