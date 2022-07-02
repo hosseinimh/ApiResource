@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Category as Entity;
 use App\Http\Resources\CategoryResource as EntityResource;
+use App\Models\Error;
 
 class CategoryService extends Service
 {
@@ -68,12 +69,9 @@ class CategoryService extends Service
         }
 
         $bookService = new BookService();
-        $books = $category->books();
 
-        if ($books) {
-            foreach ($books as $book) {
-                $bookService->removeByEntity($book);
-            }
+        foreach ($category->books as $book) {
+            $bookService->removeByEntity($book);
         }
 
         return $this->handleDelete($category->delete());

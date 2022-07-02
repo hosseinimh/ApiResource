@@ -11,6 +11,19 @@ API Resource is an online REST API that you can use whenever you need some fake 
 
 
 ## Installation
+As its a PHP Laravel project, first you need to install Composer then run this command in CMD:
+```bash
+composer create-project laravel/laravel api_resource
+```
+
+Project uses React.JS as frontend framework so, first you need to insall `NPM` then run this command in CMD:
+```bash
+npm run watch
+```
+
+
+### PHP Configuration
+
 - Server
 
 To run on server, move all folders and files except `public` to a new folder, named `frm` for example.
@@ -27,11 +40,22 @@ Move content of `public` folder to `public_html`.
 
 - Server & localhost
 
-Set `$localhost = 0;`  in `index.php`, if you're running project on server:
+Set `$localhost = 0;`  in `index.php`, in case you're running project on server:
 
 ```bash
   $localhost = 1; // set 1 if you're running project on localhost, otherwise 0
   $framework = $localhost === 1 ? '//../' : '//../frm/';
+```
+
+### JS Configuration
+If you're using project on server, open `resources/js/constants/apiUrls.js` and modify `LOCALHOST` value to 0:
+```bash
+const LOCALHOST = 1; // set 1 if you're running project on localhost, otherwise 0
+
+export const SERVER_URL =
+    LOCALHOST === 1
+        ? "http://127.0.0.1:8000/api"
+        : "https://hosseinimh.com/api";
 ```
 
 #### Initialization
@@ -41,11 +65,11 @@ If you're on server, go to `/initialize`:
 ```
 If you're on localhost, you have two options to initialize project:
 
-Go to `/initialize`
+- Go to `/initialize`
 ```bash
   GET /initialize
 ```
- Or simply run custom console command:
+ - Or simply run custom console command:
   ```bash
   php artisan project:init
 ```

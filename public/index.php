@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-$localhost = 1;
+$localhost = 1; // set 1 if you're running project on localhost, otherwise 0
 $framework = $localhost === 1 ? '//../' : '//../frm/';
 
 if (file_exists(__DIR__ . $framework . 'storage/framework/maintenance.php')) {

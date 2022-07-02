@@ -160,10 +160,12 @@ const Categories = () => {
                         ></button>
                     </div>
                     <div className="modal-body">
-                        <p className="mb-0">
+                        <p className="mb-0 text-center">
                             {strings.removeCategoryModalBody1}
                         </p>
-                        <p>{strings.removeCategoryModalBody2}</p>
+                        <p className="text-center">
+                            {strings.removeCategoryModalBody2}
+                        </p>
                     </div>
                     <div className="modal-footer">
                         <button

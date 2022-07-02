@@ -3084,8 +3084,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "CATEGORIES_API_URLS": () => (/* binding */ CATEGORIES_API_URLS),
 /* harmony export */   "BOOKS_API_URLS": () => (/* binding */ BOOKS_API_URLS)
 /* harmony export */ });
-var LOCALHOST = 1;
-var SERVER_URL = LOCALHOST === 1 ? "http://127.0.0.1:8000/api" : "https://hoseeinimh.com/api";
+var LOCALHOST = 1; // set 1 if you're running project on localhost, otherwise 0
+
+var SERVER_URL = LOCALHOST === 1 ? "http://127.0.0.1:8000/api" : "https://hosseinimh.com/api";
 var DASHBOARD_API_URLS = {
   FETCH_REVIEW: "".concat(SERVER_URL, "/dashboard/review")
 };
@@ -5437,6 +5438,7 @@ var Books = function Books() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
             className: "modal-body",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+              className: "text-center",
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.removeBookModalBody
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
@@ -6651,9 +6653,10 @@ var Categories = function Categories() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
             className: "modal-body",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
-              className: "mb-0",
+              className: "mb-0 text-center",
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.removeCategoryModalBody1
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("p", {
+              className: "text-center",
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.removeCategoryModalBody2
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {

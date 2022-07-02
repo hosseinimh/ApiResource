@@ -160,7 +160,9 @@ const Books = () => {
                         ></button>
                     </div>
                     <div className="modal-body">
-                        <p>{strings.removeBookModalBody}</p>
+                        <p className="text-center">
+                            {strings.removeBookModalBody}
+                        </p>
                     </div>
                     <div className="modal-footer">
                         <button

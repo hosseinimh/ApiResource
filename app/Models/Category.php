@@ -17,7 +17,7 @@ class Category extends Model
 
     public function books()
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Book::class, 'category_id');
     }
 
     public static function get($id)
