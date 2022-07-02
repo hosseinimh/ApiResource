@@ -48,7 +48,8 @@ Set `$localhost = 0;`  in `index.php`, in case you're running project on server:
 ```
 
 ### JS Configuration
-If you're using project on server, open `resources/js/constants/apiUrls.js` and modify `LOCALHOST` value to 0:
+If you're using project on server, open `resources/js/constants/apiUrls.js`,
+modify `LOCALHOST` value to 0 and `https://hosseinimh.com` to your server url:
 ```bash
 const LOCALHOST = 1; // set 1 if you're running project on localhost, otherwise 0
 
@@ -86,12 +87,12 @@ Database tables created successfully.
 ****
 Username: admin
 Password: 1234
-
 ****
+
 READY TO GO!
 ```
 
-If you want not to reset your database data and project initialization anymore, just remove this line in `routes/web.php`:
+If you want not to reset your database data and initialize project anymore, just remove this line in `routes/web.php`:
 ```bash
   Route::get('initialize', [Controller::class, 'initialize']);
 ```
@@ -140,6 +141,20 @@ Resources have relations: Categories have many books. Below are tables schema:
 
 ### Routes
 `GET` HTTP method is supported.
+## Documentation
+#### Architecture
+Project is based on MVC architecture, which Laravel recommends.
+It uses Models, Controllers and js files as Views.
+
+Coding schema of project is shown on picture below:
+![Logo](https://api-resource.hosseinimh.com/github/img/architecture.jpg)
+
+#### JWT Tokens
+As API calls are stateless, so you can't use sessions to identify users.
+I use `JWT tokens` to authenticate and authorize users.
+On backend, I use `middlewares` to handle users accessing endpoint routes.
+
+
 ## Authors
 
 - [@hosseinimh](https://www.github.com/hosseinimh)
