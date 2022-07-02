@@ -37,6 +37,24 @@ const userReducer = (state = initialState, { type, payload }) => {
                 loading: false,
                 error: payload,
             };
+        case userActions.FETCH_AUTH_USER_REQUEST_ACTION:
+            return { ...state, loading: true, error: null };
+        case userActions.FETCH_AUTH_USER_SUCCESS_ACTION:
+            return {
+                ...state,
+                isAuthenticated: true,
+                token: payload.token,
+                user: payload.user,
+                loading: false,
+                error: null,
+            };
+        case userActions.FETCH_AUTH_USER_FAILURE_ACTION:
+            return {
+                ...state,
+                isAuthenticated: true,
+                loading: false,
+                error: null,
+            };
         case userActions.FETCH_LOGOUT_REQUEST_ACTION:
             return { ...primaryState };
         case userActions.CLEAR_LOGIN_REQUEST_ACTION:

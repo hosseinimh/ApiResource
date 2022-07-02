@@ -20,7 +20,7 @@ class IndexUsersRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'numeric|gt:0',
+            'username' => 'max:50',
             'name' => 'max:50',
             'page' => 'numeric|gt:0',
         ];
@@ -29,8 +29,7 @@ class IndexUsersRequest extends FormRequest
     public function messages()
     {
         return [
-            'username.numeric' => __('user.username_numeric'),
-            'username.gt' => __('user.username_gt'),
+            'username.max' => __('user.username_max'),
             'name.max' => __('user.name_max'),
             'page.numeric' => __('general.page_numeric'),
             'page.gt' => __('general.page_gt'),

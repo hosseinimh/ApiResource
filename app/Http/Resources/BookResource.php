@@ -12,13 +12,13 @@ class BookResource extends JsonResource
         return [
             'id' => intval($this->id),
             'name' => $this->name ?? '',
-            'image' => $this->image ?? null,
-            'description' => $this->description ?? null,
-            'extraInfo' => $this->extra_info ?? null,
+            'image' => $this->image ?? '',
+            'description' => $this->description ?? '',
+            'extraInfo' => $this->extra_info ?? '',
             'categoryId' => intval($this->category_id),
             'categoryTite' => $this->category->title,
             'tags' => $this->tags ? $this->getTagsArray($this->tags) : null,
-            'tagsText' => $this->tags ? $this->getTagsText($this->tags) : null,
+            'tagsText' => $this->tags ? $this->getTagsText($this->tags) : '',
         ];
     }
 

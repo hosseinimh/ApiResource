@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
@@ -46,6 +47,24 @@ class ProjectInit extends Command
         $this->comment($this->description);
         $this->info('');
 
+        Artisan::call('cache:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+        Artisan::call('view:clear');
+        $this->info('Cache cleared successfully.');
+        $this->info('');
+
+        $files = glob(storage_path('app') . '/public/img/books/*');
+
+        foreach ($files as $file) {
+            if (is_file($file)) {
+                @unlink($file);
+            }
+        }
+
+        $this->info('Uploaded files deleted successfully.');
+        $this->info('');
+
         Artisan::call('storage:link');
         $this->info('Symbolic links created successfully.');
         $this->info('');
@@ -65,7 +84,7 @@ class ProjectInit extends Command
 
         $this->info('');
         $this->info('****');
-        $this->line('Username: 123456');
+        $this->line('Username: admin');
         $this->line('Password: 1234');
         $this->info('****');
         $this->info('');

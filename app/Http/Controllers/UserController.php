@@ -7,6 +7,7 @@ use App\Http\Requests\User\GetUserRequest;
 use App\Http\Requests\User\IndexUsersRequest;
 use App\Http\Requests\User\LoginUserRequest as LoginRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use Illuminate\Support\Facades\Request;
 
 class UserController extends Controller
 {
@@ -18,6 +19,11 @@ class UserController extends Controller
     public function show(GetUserRequest $request)
     {
         return $this->handleJsonResponse($this->service->get($request->id));
+    }
+
+    public function getAuth(Request $request)
+    {
+        return $this->handleJsonResponse($this->service->getAuth());
     }
 
     public function update(UpdateUserRequest $request)

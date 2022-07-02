@@ -138,6 +138,7 @@ export const categoriesPage = {
     _title: "Categories",
     title: "Title",
     searchSubmit: "Search",
+    addCategory: "Add category",
 };
 
 export const addCategoryPage = {
@@ -163,6 +164,22 @@ export const booksPage = {
     category: "Category",
     tags: "Tags",
     searchSubmit: "Search",
+    addBook: "Add book",
+};
+
+export const addBookPage = {
+    _title: "Add book",
+    name: "Name",
+    namePlaceholder: "Name",
+    image: "Image",
+    description: "Description",
+    descriptionPlaceholder: "Description",
+    extraInfo: "Extra info",
+    extraInfoPlaceholder: "Extra info",
+    categoryId: "Category",
+    tags: "Tags",
+    tagsPlaceholder: "Add tags separated by comma",
+    submitted: "Book added successfully.",
 };
 
 export const editBookPage = {

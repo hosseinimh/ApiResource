@@ -7,7 +7,7 @@ export class User extends Entity {
         super();
     }
 
-    async getPage(username, name, family, page = 1) {
+    async getPagination(username, name, family, page = 1) {
         return await this.handlePostWithToken(API_URLS.FETCH_USERS, {
             username: username,
             name: name,

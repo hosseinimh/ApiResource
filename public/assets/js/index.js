@@ -3093,6 +3093,7 @@ var USERS_API_URLS = {
   LOGIN: "".concat(SERVER_URL, "/users/login"),
   LOGOUT: "".concat(SERVER_URL, "/users/logout"),
   FETCH_USER: "".concat(SERVER_URL, "/users/show"),
+  FETCH_AUTH_USER: "".concat(SERVER_URL, "/users/get_auth"),
   FETCH_USERS: "".concat(SERVER_URL, "/users"),
   UPDATE_USER: "".concat(SERVER_URL, "/users/update"),
   CHANGE_PASSWORD: "".concat(SERVER_URL, "/users/change_password")
@@ -3100,6 +3101,7 @@ var USERS_API_URLS = {
 var CATEGORIES_API_URLS = {
   FETCH_CATEGORY: "".concat(SERVER_URL, "/categories/show"),
   FETCH_CATEGORIES: "".concat(SERVER_URL, "/categories"),
+  FETCH_ALL_CATEGORIES: "".concat(SERVER_URL, "/categories/get_all"),
   STORE_CATEGORY: "".concat(SERVER_URL, "/categories/store"),
   UPDATE_CATEGORY: "".concat(SERVER_URL, "/categories/update")
 };
@@ -3223,6 +3225,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addCategoryPage": () => (/* binding */ addCategoryPage),
 /* harmony export */   "editCategoryPage": () => (/* binding */ editCategoryPage),
 /* harmony export */   "booksPage": () => (/* binding */ booksPage),
+/* harmony export */   "addBookPage": () => (/* binding */ addBookPage),
 /* harmony export */   "editBookPage": () => (/* binding */ editBookPage)
 /* harmony export */ });
 var layout = {
@@ -3352,7 +3355,8 @@ var changePasswordPage = {
 var categoriesPage = {
   _title: "Categories",
   title: "Title",
-  searchSubmit: "Search"
+  searchSubmit: "Search",
+  addCategory: "Add category"
 };
 var addCategoryPage = {
   _title: "Add category",
@@ -3374,7 +3378,22 @@ var booksPage = {
   extraInfo: "Extra info",
   category: "Category",
   tags: "Tags",
-  searchSubmit: "Search"
+  searchSubmit: "Search",
+  addBook: "Add book"
+};
+var addBookPage = {
+  _title: "Add book",
+  name: "Name",
+  namePlaceholder: "Name",
+  image: "Image",
+  description: "Description",
+  descriptionPlaceholder: "Description",
+  extraInfo: "Extra info",
+  extraInfoPlaceholder: "Extra info",
+  categoryId: "Category",
+  tags: "Tags",
+  tagsPlaceholder: "Add tags separated by comma",
+  submitted: "Book added successfully."
 };
 var editBookPage = {
   _title: "Edit book",
@@ -3484,9 +3503,9 @@ var Book = /*#__PURE__*/function (_Entity) {
   }
 
   _createClass(Book, [{
-    key: "getPage",
+    key: "getPagination",
     value: function () {
-      var _getPage = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(name, categoryId) {
+      var _getPagination = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(name, categoryId) {
         var page,
             _args = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -3512,11 +3531,11 @@ var Book = /*#__PURE__*/function (_Entity) {
         }, _callee, this);
       }));
 
-      function getPage(_x, _x2) {
-        return _getPage.apply(this, arguments);
+      function getPagination(_x, _x2) {
+        return _getPagination.apply(this, arguments);
       }
 
-      return getPage;
+      return getPagination;
     }()
   }, {
     key: "get",
@@ -3561,7 +3580,7 @@ var Book = /*#__PURE__*/function (_Entity) {
                 data.append("name", name);
                 data.append("image", image);
                 data.append("description", description);
-                data.append("extraInfo", extraInfo);
+                data.append("extra_info", extraInfo);
                 data.append("category_id", categoryId);
 
                 for (i = 0; i < (tags === null || tags === void 0 ? void 0 : tags.length); i++) {
@@ -3602,7 +3621,7 @@ var Book = /*#__PURE__*/function (_Entity) {
                 data.append("name", name);
                 data.append("image", image);
                 data.append("description", description);
-                data.append("extraInfo", extraInfo);
+                data.append("extra_info", extraInfo);
                 data.append("category_id", categoryId);
 
                 for (i = 0; i < (tags === null || tags === void 0 ? void 0 : tags.length); i++) {
@@ -3693,9 +3712,9 @@ var Category = /*#__PURE__*/function (_Entity) {
   }
 
   _createClass(Category, [{
-    key: "getPage",
+    key: "getPagination",
     value: function () {
-      var _getPage = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(title) {
+      var _getPagination = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(title) {
         var page,
             _args = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -3720,24 +3739,22 @@ var Category = /*#__PURE__*/function (_Entity) {
         }, _callee, this);
       }));
 
-      function getPage(_x) {
-        return _getPage.apply(this, arguments);
+      function getPagination(_x) {
+        return _getPagination.apply(this, arguments);
       }
 
-      return getPage;
+      return getPagination;
     }()
   }, {
-    key: "get",
+    key: "getAll",
     value: function () {
-      var _get = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(id) {
+      var _getAll = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.FETCH_CATEGORY, {
-                  id: id
-                });
+                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.FETCH_ALL_CATEGORIES);
 
               case 2:
                 return _context2.abrupt("return", _context2.sent);
@@ -3750,23 +3767,23 @@ var Category = /*#__PURE__*/function (_Entity) {
         }, _callee2, this);
       }));
 
-      function get(_x2) {
-        return _get.apply(this, arguments);
+      function getAll() {
+        return _getAll.apply(this, arguments);
       }
 
-      return get;
+      return getAll;
     }()
   }, {
-    key: "store",
+    key: "get",
     value: function () {
-      var _store = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(title) {
+      var _get = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.STORE_CATEGORY, {
-                  title: title
+                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.FETCH_CATEGORY, {
+                  id: id
                 });
 
               case 2:
@@ -3780,23 +3797,22 @@ var Category = /*#__PURE__*/function (_Entity) {
         }, _callee3, this);
       }));
 
-      function store(_x3) {
-        return _store.apply(this, arguments);
+      function get(_x2) {
+        return _get.apply(this, arguments);
       }
 
-      return store;
+      return get;
     }()
   }, {
-    key: "update",
+    key: "store",
     value: function () {
-      var _update = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(id, title) {
+      var _store = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(title) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.UPDATE_CATEGORY, {
-                  id: id,
+                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.STORE_CATEGORY, {
                   title: title
                 });
 
@@ -3809,6 +3825,37 @@ var Category = /*#__PURE__*/function (_Entity) {
             }
           }
         }, _callee4, this);
+      }));
+
+      function store(_x3) {
+        return _store.apply(this, arguments);
+      }
+
+      return store;
+    }()
+  }, {
+    key: "update",
+    value: function () {
+      var _update = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(id, title) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return this.handlePostWithToken(_constants__WEBPACK_IMPORTED_MODULE_1__.CATEGORIES_API_URLS.UPDATE_CATEGORY, {
+                  id: id,
+                  title: title
+                });
+
+              case 2:
+                return _context5.abrupt("return", _context5.sent);
+
+              case 3:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this);
       }));
 
       function update(_x4, _x5) {
@@ -4206,9 +4253,9 @@ var User = /*#__PURE__*/function (_Entity) {
   }
 
   _createClass(User, [{
-    key: "getPage",
+    key: "getPagination",
     value: function () {
-      var _getPage = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(username, name, family) {
+      var _getPagination = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(username, name, family) {
         var page,
             _args = arguments;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
@@ -4235,11 +4282,11 @@ var User = /*#__PURE__*/function (_Entity) {
         }, _callee, this);
       }));
 
-      function getPage(_x, _x2, _x3) {
-        return _getPage.apply(this, arguments);
+      function getPagination(_x, _x2, _x3) {
+        return _getPagination.apply(this, arguments);
       }
 
-      return getPage;
+      return getPagination;
     }()
   }, {
     key: "get",
@@ -4566,6 +4613,472 @@ react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime
 
 /***/ }),
 
+/***/ "./resources/js/resources/Pages/Book/AddBook.js":
+/*!******************************************************!*\
+  !*** ./resources/js/resources/Pages/Book/AddBook.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
+/* harmony import */ var _hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @hookform/resolvers/yup */ "./node_modules/@hookform/resolvers/yup/dist/yup.module.js");
+/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_layout */ "./resources/js/resources/Pages/_layout/index.js");
+/* harmony import */ var _http_entities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../http/entities */ "./resources/js/http/entities/index.js");
+/* harmony import */ var _constants_strings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../constants/strings */ "./resources/js/constants/strings.js");
+/* harmony import */ var _validations__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../validations */ "./resources/js/resources/validations/index.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../constants */ "./resources/js/constants/index.js");
+/* harmony import */ var _state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../state/layout/layoutActions */ "./resources/js/state/layout/layoutActions.js");
+/* harmony import */ var _state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../state/message/messageActions */ "./resources/js/state/message/messageActions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var AddBook = function AddBook() {
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
+  var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+    return state.layoutReducer;
+  });
+  var messageState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+    return state.messageReducer;
+  });
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.useNavigate)();
+  var entity = new _http_entities__WEBPACK_IMPORTED_MODULE_6__.Book();
+  var callbackUrl = "".concat(_constants__WEBPACK_IMPORTED_MODULE_9__.basePath, "/books");
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      file = _useState2[0],
+      setFile = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null),
+      _useState4 = _slicedToArray(_useState3, 2),
+      categories = _useState4[0],
+      setCategories = _useState4[1];
+
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      input = _useState6[0],
+      setInput = _useState6[1];
+
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+      _useState8 = _slicedToArray(_useState7, 2),
+      tags = _useState8[0],
+      setTags = _useState8[1];
+
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      isKeyReleased = _useState10[0],
+      setIsKeyReleased = _useState10[1];
+
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(true),
+      _useState12 = _slicedToArray(_useState11, 2),
+      isCurrent = _useState12[0],
+      setIsCurrent = _useState12[1];
+
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_3__.useForm)({
+    resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_4__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_8__.addBookSchema)
+  }),
+      register = _useForm.register,
+      handleSubmit = _useForm.handleSubmit,
+      errors = _useForm.formState.errors,
+      setValue = _useForm.setValue;
+
+  var fillForm = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _result$items;
+
+      var category, result;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setLoadingAction)(true));
+              category = new _http_entities__WEBPACK_IMPORTED_MODULE_6__.Category();
+              _context.next = 4;
+              return category.getAll();
+
+            case 4:
+              result = _context.sent;
+
+              if (!(result === null)) {
+                _context.next = 8;
+                break;
+              }
+
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.setMessageAction)(category.errorMessage, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, category.errorCode));
+              return _context.abrupt("return");
+
+            case 8:
+              setCategories(result === null || result === void 0 ? void 0 : result.items);
+
+              if ((result === null || result === void 0 ? void 0 : (_result$items = result.items) === null || _result$items === void 0 ? void 0 : _result$items.length) > 0) {
+                setValue("categoryId", result === null || result === void 0 ? void 0 : result.items[0].id);
+              }
+
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setLoadingAction)(false));
+
+            case 11:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function fillForm() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  var onSubmit = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(data) {
+      var result;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setLoadingAction)(true));
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.clearMessageAction)());
+              _context2.next = 4;
+              return entity.store(data.name, file, data.description, data.extraInfo, data.categoryId, tags);
+
+            case 4:
+              result = _context2.sent;
+
+              if (!(result === null)) {
+                _context2.next = 9;
+                break;
+              }
+
+              dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setLoadingAction)(false));
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.setMessageAction)(entity.errorMessage, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, entity.errorCode));
+              return _context2.abrupt("return");
+
+            case 9:
+              if (!(file && (!(result !== null && result !== void 0 && result.uploaded) || (result === null || result === void 0 ? void 0 : result.uploaded) !== _constants__WEBPACK_IMPORTED_MODULE_9__.UPLOADED_FILE.OK))) {
+                _context2.next = 13;
+                break;
+              }
+
+              (0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setLoadingAction)(false);
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.setMessageAction)(result === null || result === void 0 ? void 0 : result.uploadedText, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, result === null || result === void 0 ? void 0 : result.uploaded, true, "image"));
+              return _context2.abrupt("return");
+
+            case 13:
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.setMessageAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage.submitted, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.SUCCESS, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_CODES.OK, false));
+              navigate(callbackUrl);
+
+            case 15:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function onSubmit(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var onCancel = function onCancel() {
+    navigate(callbackUrl);
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setTitleAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage._title));
+    fillForm();
+    return function () {
+      setIsCurrent(false);
+    };
+  }, []);
+
+  var onChangeTags = function onChangeTags(e) {
+    var value = e.target.value;
+    setInput(value);
+  };
+
+  var onChangeFile = function onChangeFile(e) {
+    var _e$target;
+
+    var image = e === null || e === void 0 ? void 0 : (_e$target = e.target) === null || _e$target === void 0 ? void 0 : _e$target.files[0];
+
+    if (image) {
+      setFile(image);
+    }
+  };
+
+  var onKeyDownTags = function onKeyDownTags(e) {
+    var key = e.key;
+    var trimmedInput = input.trim();
+
+    if (key === "," && trimmedInput.length && !(tags !== null && tags !== void 0 && tags.includes(trimmedInput))) {
+      e.preventDefault();
+      setTags(function (prevState) {
+        return [].concat(_toConsumableArray(prevState), [trimmedInput]);
+      });
+      setInput("");
+    }
+
+    if (key === "Backspace" && !input.length && tags !== null && tags !== void 0 && tags.length && isKeyReleased) {
+      var tagsCopy = _toConsumableArray(tags);
+
+      var poppedTag = tagsCopy.pop();
+      e.preventDefault();
+      setTags(tagsCopy);
+      setInput(poppedTag);
+    }
+
+    setIsKeyReleased(false);
+  };
+
+  var onKeyUpTags = function onKeyUpTags() {
+    setIsKeyReleased(true);
+  };
+
+  var deleteTag = function deleteTag(index) {
+    setTags(function (prevState) {
+      return prevState.filter(function (tag, i) {
+        return i !== index;
+      });
+    });
+  };
+
+  var renderInputRow = function renderInputRow(field) {
+    var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "text";
+    var placeholder = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    placeholder = placeholder ? placeholder : _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage["".concat(field, "Placeholder")];
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "col-md-6 col-sm-12 pb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+        className: "form-label",
+        htmlFor: field,
+        children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage[field]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
+        className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field ? "form-control is-invalid" : "form-control",
+        id: field,
+        placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage["".concat(field, "Placeholder")],
+        disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+        type: type
+      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "invalid-feedback",
+        children: messageState === null || messageState === void 0 ? void 0 : messageState.message
+      })]
+    });
+  };
+
+  var renderFileRow = function renderFileRow(field) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "col-md-6 col-sm-12 pb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+        className: "form-label",
+        htmlFor: field,
+        children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage[field]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
+        className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field ? "form-control is-invalid" : "form-control",
+        id: field,
+        placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage["".concat(field, "Placeholder")],
+        disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+        type: "file",
+        accept: ".jpg, .jpeg, .png",
+        onChange: function onChange(e) {
+          return onChangeFile(e);
+        }
+      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "invalid-feedback",
+        children: messageState === null || messageState === void 0 ? void 0 : messageState.message
+      })]
+    });
+  };
+
+  var renderTextareaRow = function renderTextareaRow(field) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "col-md-6 col-sm-12 pb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+        className: "form-label",
+        htmlFor: field,
+        children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage[field]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("textarea", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
+        className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field ? "form-control is-invalid" : "form-control",
+        style: {
+          height: "6rem"
+        },
+        id: field,
+        placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage["".concat(field, "Placeholder")],
+        readOnly: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading
+      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "invalid-feedback",
+        children: messageState === null || messageState === void 0 ? void 0 : messageState.message
+      })]
+    });
+  };
+
+  var renderSelectRow = function renderSelectRow(field, items, key, value) {
+    var handleChange = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "col-md-6 col-sm-12 pb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+        className: "form-label",
+        htmlFor: field,
+        children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage[field]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("select", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
+        className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field ? "form-select is-invalid" : "form-select",
+        "aria-label": "select ".concat(field),
+        disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+        onChange: function onChange(e) {
+          if (handleChange) handleChange(e);
+        },
+        children: items === null || items === void 0 ? void 0 : items.map(function (item, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("option", {
+            value: item[key],
+            children: item[value]
+          }, index);
+        })
+      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "invalid-feedback",
+        children: messageState === null || messageState === void 0 ? void 0 : messageState.message
+      })]
+    });
+  };
+
+  var renderTagRow = function renderTagRow(field) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "col-md-6 col-sm-12 pb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
+        className: "form-label",
+        htmlFor: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage.tags,
+        children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage.tags
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
+        className: "form-control",
+        id: field,
+        placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addBookPage["".concat(field, "Placeholder")],
+        disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+        value: input,
+        onKeyDown: onKeyDownTags,
+        onKeyUp: onKeyUpTags,
+        onChange: onChangeTags
+      })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        children: tags === null || tags === void 0 ? void 0 : tags.map(function (tag, index) {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            className: "tag",
+            children: [tag, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+              onClick: function onClick() {
+                return deleteTag(index);
+              },
+              children: "x"
+            })]
+          }, index);
+        })
+      })]
+    });
+  };
+
+  var renderForm = function renderForm() {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "card mb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "card-body",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+          className: "row",
+          children: [renderInputRow("name"), renderFileRow("image"), renderTextareaRow("description"), renderTextareaRow("extraInfo"), renderSelectRow("categoryId", categories, "id", "title"), renderTagRow("tags")]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "card-footer",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+            className: "col-sm-12",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+              className: "btn btn-success px-4 mr-2",
+              type: "button",
+              onClick: handleSubmit(onSubmit),
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.submit
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+              className: "btn btn-secondary",
+              type: "button",
+              onClick: onCancel,
+              disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.cancel
+            })]
+          })
+        })
+      })]
+    });
+  };
+
+  if (!isCurrent) /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.Fragment, {});
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layout__WEBPACK_IMPORTED_MODULE_5__.InsertPage, {
+    page: "Books",
+    errors: errors,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+      className: "row",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
+        className: "col-12",
+        children: renderForm()
+      })
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddBook);
+
+/***/ }),
+
 /***/ "./resources/js/resources/Pages/Book/Books.js":
 /*!****************************************************!*\
   !*** ./resources/js/resources/Pages/Book/Books.js ***!
@@ -4581,10 +5094,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
 /* harmony import */ var _hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @hookform/resolvers/yup */ "./node_modules/@hookform/resolvers/yup/dist/yup.module.js");
-/* harmony import */ var react_icons_bs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-icons/bs */ "./node_modules/react-icons/bs/index.esm.js");
+/* harmony import */ var react_icons_bs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-icons/bs */ "./node_modules/react-icons/bs/index.esm.js");
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_layout */ "./resources/js/resources/Pages/_layout/index.js");
 /* harmony import */ var _http_entities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../http/entities */ "./resources/js/http/entities/index.js");
 /* harmony import */ var _constants_strings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../constants/strings */ "./resources/js/constants/strings.js");
@@ -4636,6 +5149,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Books = function Books() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
@@ -4644,6 +5158,7 @@ var Books = function Books() {
   var messageState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return state.messageReducer;
   });
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useNavigate)();
   var entity = new _http_entities__WEBPACK_IMPORTED_MODULE_6__.Book();
   var columnsCount = 6;
 
@@ -4691,7 +5206,7 @@ var Books = function Books() {
               data = _args.length > 0 && _args[0] !== undefined ? _args[0] : null;
               dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
               _context.next = 4;
-              return entity.getPage(data === null || data === void 0 ? void 0 : data.name, data === null || data === void 0 ? void 0 : data.categoryId);
+              return entity.getPagination(data === null || data === void 0 ? void 0 : data.name, data === null || data === void 0 ? void 0 : data.categoryId);
 
             case 4:
               result = _context.sent;
@@ -4723,6 +5238,10 @@ var Books = function Books() {
     };
   }();
 
+  var onAdd = function onAdd() {
+    navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_9__.basePath, "/books/add"));
+  };
+
   var onEdit = function onEdit(id) {
     setItem(id);
     setAction("Edit");
@@ -4747,7 +5266,6 @@ var Books = function Books() {
             className: "col-sm-12",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", _objectSpread(_objectSpread({}, register("name")), {}, {
               className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === "name" ? "form-control is-invalid" : "form-control",
-              type: "number",
               placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.name,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading
             })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === "name" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
@@ -4767,6 +5285,7 @@ var Books = function Books() {
               type: "button",
               onClick: handleSubmit(onSubmit),
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.searchSubmit,
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.searchSubmit
             })
           })
@@ -4832,6 +5351,7 @@ var Books = function Books() {
                 target: "_blank",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
                   src: "/img/books/".concat(item === null || item === void 0 ? void 0 : item.image),
+                  className: "mb-2",
                   style: {
                     width: "100px"
                   }
@@ -4859,7 +5379,7 @@ var Books = function Books() {
               },
               title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.edit,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_14__.BsPencilFill, {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_15__.BsPencilFill, {})
             })
           })]
         }, item.id);
@@ -4891,7 +5411,7 @@ var Books = function Books() {
 
   if (item) {
     if (action === "Edit") {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_15__.Navigate, {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Navigate, {
         to: "".concat(_constants__WEBPACK_IMPORTED_MODULE_9__.basePath, "/books/edit/").concat(item),
         replace: true
       });
@@ -4902,6 +5422,21 @@ var Books = function Books() {
     page: "Books",
     errors: errors,
     children: [renderFilterSection(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "row mb-2",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "col-sm-12 my-4",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+          className: "btn btn-success px-4",
+          type: "button",
+          title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.addBook,
+          onClick: function onClick() {
+            return onAdd();
+          },
+          disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+          children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.booksPage.addBook
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
       className: "row mb-4",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components__WEBPACK_IMPORTED_MODULE_8__.Table, {
         items: items,
@@ -5410,7 +5945,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
 /* harmony import */ var _hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @hookform/resolvers/yup */ "./node_modules/@hookform/resolvers/yup/dist/yup.module.js");
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_layout */ "./resources/js/resources/Pages/_layout/index.js");
@@ -5420,8 +5955,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../constants */ "./resources/js/constants/index.js");
 /* harmony import */ var _state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../state/layout/layoutActions */ "./resources/js/state/layout/layoutActions.js");
 /* harmony import */ var _state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../state/message/messageActions */ "./resources/js/state/message/messageActions.js");
-/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../utils/Utils */ "./resources/js/utils/Utils.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5462,7 +5996,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var AddCategory = function AddCategory() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
@@ -5471,7 +6004,7 @@ var AddCategory = function AddCategory() {
   var messageState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return state.messageReducer;
   });
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_13__.useNavigate)();
   var entity = new _http_entities__WEBPACK_IMPORTED_MODULE_6__.Category();
   var callbackUrl = "".concat(_constants__WEBPACK_IMPORTED_MODULE_9__.basePath, "/categories");
 
@@ -5484,7 +6017,6 @@ var AddCategory = function AddCategory() {
     resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_4__.yupResolver)(_validations__WEBPACK_IMPORTED_MODULE_8__.addCategorySchema)
   }),
       register = _useForm.register,
-      setValue = _useForm.setValue,
       handleSubmit = _useForm.handleSubmit,
       errors = _useForm.formState.errors;
 
@@ -5497,15 +6029,14 @@ var AddCategory = function AddCategory() {
             case 0:
               dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setLoadingAction)(true));
               dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.clearMessageAction)());
-              window.scrollTo(0, 0);
-              _context.next = 5;
-              return entity.store(data === null || data === void 0 ? void 0 : data.title);
+              _context.next = 4;
+              return entity.store(data.title);
 
-            case 5:
+            case 4:
               result = _context.sent;
 
               if (!(result === null)) {
-                _context.next = 10;
+                _context.next = 9;
                 break;
               }
 
@@ -5513,11 +6044,11 @@ var AddCategory = function AddCategory() {
               dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.setMessageAction)(entity.errorMessage, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.ERROR, entity.errorCode));
               return _context.abrupt("return");
 
-            case 10:
-              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.setMessageAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.addCategoryPage.saved, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.SUCCESS, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_CODES.OK, false));
+            case 9:
+              dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_11__.setMessageAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.addCategoryPage.submitted, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.SUCCESS, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_CODES.OK, false));
               navigate(callbackUrl);
 
-            case 12:
+            case 11:
             case "end":
               return _context.stop();
           }
@@ -5535,7 +6066,7 @@ var AddCategory = function AddCategory() {
   };
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setTitleAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.addCategoryPage.title));
+    dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_10__.setTitleAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.addCategoryPage._title));
     return function () {
       setIsCurrent(false);
     };
@@ -5545,19 +6076,19 @@ var AddCategory = function AddCategory() {
     var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "text";
     var placeholder = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     placeholder = placeholder ? placeholder : _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addCategoryPage["".concat(field, "Placeholder")];
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
-      className: "col-md-12 col-sm-12 pb-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("label", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
+      className: "col-12 pb-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("label", {
         className: "form-label",
         htmlFor: field,
         children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addCategoryPage[field]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("input", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
         className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field ? "form-control is-invalid" : "form-control",
         id: field,
         placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.addCategoryPage["".concat(field, "Placeholder")],
         disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
         type: type
-      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "invalid-feedback",
         children: messageState === null || messageState === void 0 ? void 0 : messageState.message
       })]
@@ -5565,28 +6096,28 @@ var AddCategory = function AddCategory() {
   };
 
   var renderForm = function renderForm() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
       className: "card mb-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "card-body",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
           className: "row",
           children: renderInputRow("title")
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "card-footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
           className: "row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
             className: "col-sm-12",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
               className: "btn btn-success px-4 mr-2",
               type: "button",
               onClick: handleSubmit(onSubmit),
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.submit
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
-              className: "btn btn-secondary px-4",
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("button", {
+              className: "btn btn-secondary",
               type: "button",
               onClick: onCancel,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
@@ -5598,13 +6129,13 @@ var AddCategory = function AddCategory() {
     });
   };
 
-  if (!isCurrent) /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {});
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_layout__WEBPACK_IMPORTED_MODULE_5__.InsertPage, {
+  if (!isCurrent) /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.Fragment, {});
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_layout__WEBPACK_IMPORTED_MODULE_5__.InsertPage, {
     page: "Categories",
     errors: errors,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
       className: "row",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("div", {
         className: "col-12",
         children: renderForm()
       })
@@ -5631,10 +6162,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
 /* harmony import */ var _hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @hookform/resolvers/yup */ "./node_modules/@hookform/resolvers/yup/dist/yup.module.js");
-/* harmony import */ var react_icons_bs__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-icons/bs */ "./node_modules/react-icons/bs/index.esm.js");
+/* harmony import */ var react_icons_bs__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-icons/bs */ "./node_modules/react-icons/bs/index.esm.js");
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_layout */ "./resources/js/resources/Pages/_layout/index.js");
 /* harmony import */ var _http_entities__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../http/entities */ "./resources/js/http/entities/index.js");
 /* harmony import */ var _constants_strings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../constants/strings */ "./resources/js/constants/strings.js");
@@ -5686,6 +6217,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var Categories = function Categories() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
@@ -5694,6 +6226,7 @@ var Categories = function Categories() {
   var messageState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return state.messageReducer;
   });
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useNavigate)();
   var entity = new _http_entities__WEBPACK_IMPORTED_MODULE_6__.Category();
   var columnsCount = 3;
 
@@ -5741,7 +6274,7 @@ var Categories = function Categories() {
               data = _args.length > 0 && _args[0] !== undefined ? _args[0] : null;
               dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
               _context.next = 4;
-              return entity.getPage(data === null || data === void 0 ? void 0 : data.title);
+              return entity.getPagination(data === null || data === void 0 ? void 0 : data.title);
 
             case 4:
               result = _context.sent;
@@ -5773,6 +6306,10 @@ var Categories = function Categories() {
     };
   }();
 
+  var onAdd = function onAdd() {
+    navigate("".concat(_constants__WEBPACK_IMPORTED_MODULE_9__.basePath, "/categories/add"));
+  };
+
   var onEdit = function onEdit(id) {
     setItem(id);
     setAction("Edit");
@@ -5797,7 +6334,6 @@ var Categories = function Categories() {
             className: "col-sm-12",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", _objectSpread(_objectSpread({}, register("title")), {}, {
               className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === "title" ? "form-control is-invalid" : "form-control",
-              type: "number",
               placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.title,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading
             })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === "title" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
@@ -5817,6 +6353,7 @@ var Categories = function Categories() {
               type: "button",
               onClick: handleSubmit(onSubmit),
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.searchSubmit,
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.searchSubmit
             })
           })
@@ -5839,8 +6376,7 @@ var Categories = function Categories() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
         scope: "col",
         style: {
-          width: "120px",
-          textAlign: "center"
+          width: "120px"
         },
         children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.actions
       })]
@@ -5865,7 +6401,7 @@ var Categories = function Categories() {
               },
               title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.edit,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_14__.BsPencilFill, {})
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_icons_bs__WEBPACK_IMPORTED_MODULE_15__.BsPencilFill, {})
             })
           })]
         }, item.id);
@@ -5897,7 +6433,7 @@ var Categories = function Categories() {
 
   if (item) {
     if (action === "Edit") {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router__WEBPACK_IMPORTED_MODULE_15__.Navigate, {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.Navigate, {
         to: "".concat(_constants__WEBPACK_IMPORTED_MODULE_9__.basePath, "/categories/edit/").concat(item),
         replace: true
       });
@@ -5908,6 +6444,21 @@ var Categories = function Categories() {
     page: "Categories",
     errors: errors,
     children: [renderFilterSection(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      className: "row mb-2",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        className: "col-sm-12 my-4",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+          className: "btn btn-success px-4",
+          type: "button",
+          title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.addCategory,
+          onClick: function onClick() {
+            return onAdd();
+          },
+          disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+          children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.categoriesPage.addCategory
+        })
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
       className: "row mb-4",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components__WEBPACK_IMPORTED_MODULE_8__.Table, {
         items: items,
@@ -6664,7 +7215,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/index.js");
 /* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.js");
 /* harmony import */ var _hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @hookform/resolvers/yup */ "./node_modules/@hookform/resolvers/yup/dist/yup.module.js");
 /* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_layout */ "./resources/js/resources/Pages/_layout/index.js");
@@ -6675,7 +7226,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../utils/Utils */ "./resources/js/utils/Utils.js");
 /* harmony import */ var _state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../state/layout/layoutActions */ "./resources/js/state/layout/layoutActions.js");
 /* harmony import */ var _state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../state/message/messageActions */ "./resources/js/state/message/messageActions.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _state_user_userActions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../state/user/userActions */ "./resources/js/state/user/userActions.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -6718,6 +7270,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var EditUser = function EditUser() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   var layoutState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
@@ -6726,10 +7279,10 @@ var EditUser = function EditUser() {
   var messageState = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
     return state.messageReducer;
   });
-  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useNavigate)();
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useNavigate)();
   var entity = new _http_entities__WEBPACK_IMPORTED_MODULE_6__.User();
 
-  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_14__.useParams)(),
+  var _useParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_15__.useParams)(),
       userId = _useParams.userId;
 
   userId = parseInt(userId);
@@ -6816,9 +7369,14 @@ var EditUser = function EditUser() {
 
             case 9:
               dispatch((0,_state_message_messageActions__WEBPACK_IMPORTED_MODULE_12__.setMessageAction)(_constants_strings__WEBPACK_IMPORTED_MODULE_7__.editUserPage.submitted, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_TYPES.SUCCESS, _constants__WEBPACK_IMPORTED_MODULE_9__.MESSAGE_CODES.OK, false));
+
+              if ((lsUser === null || lsUser === void 0 ? void 0 : lsUser.id) === userId) {
+                dispatch((0,_state_user_userActions__WEBPACK_IMPORTED_MODULE_13__.fetchAuthUserAction)());
+              }
+
               navigate(callbackUrl);
 
-            case 11:
+            case 12:
             case "end":
               return _context2.stop();
           }
@@ -6852,19 +7410,19 @@ var EditUser = function EditUser() {
     var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "text";
     var placeholder = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
     placeholder = placeholder ? placeholder : _constants_strings__WEBPACK_IMPORTED_MODULE_7__.editUserPage["".concat(field, "Placeholder")];
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
       className: "col-12 pb-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("label", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("label", {
         className: "form-label",
         htmlFor: field,
         children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.editUserPage[field]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("input", _objectSpread(_objectSpread({}, register("".concat(field))), {}, {
         className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field ? "form-control is-invalid" : "form-control",
         id: field,
         placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.editUserPage["".concat(field, "Placeholder")],
         disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
         type: type
-      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === field && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "invalid-feedback",
         children: messageState === null || messageState === void 0 ? void 0 : messageState.message
       })]
@@ -6872,27 +7430,27 @@ var EditUser = function EditUser() {
   };
 
   var renderForm = function renderForm() {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
       className: "card mb-4",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "card-body",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
           className: "row",
           children: [renderInputRow("name"), renderInputRow("family")]
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "card-footer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
           className: "row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsxs)("div", {
             className: "col-sm-12",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
               className: "btn btn-success px-4 mr-2",
               type: "button",
               onClick: handleSubmit(onSubmit),
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.submit
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("button", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("button", {
               className: "btn btn-secondary",
               type: "button",
               onClick: onCancel,
@@ -6905,13 +7463,13 @@ var EditUser = function EditUser() {
     });
   };
 
-  if (!isCurrent) /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.Fragment, {});
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_layout__WEBPACK_IMPORTED_MODULE_5__.InsertPage, {
+  if (!isCurrent) /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.Fragment, {});
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)(_layout__WEBPACK_IMPORTED_MODULE_5__.InsertPage, {
     page: "Users",
     errors: errors,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
       className: "row",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_14__.jsx)("div", {
         className: "col-12",
         children: renderForm()
       })
@@ -7087,9 +7645,6 @@ var Login = function Login() {
               className: "text-medium-emphasis",
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_4__.loginPage.description
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components__WEBPACK_IMPORTED_MODULE_10__.AlertState, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)("form", {
-              id: "loginForm",
-              method: "POST",
-              action: "".concat(_constants__WEBPACK_IMPORTED_MODULE_5__.rootPath, "users/login_web"),
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsxs)("div", {
                 className: "row",
                 children: [renderInputRow("username"), renderInputRow("password", "password")]
@@ -7233,6 +7788,8 @@ var Users = function Users() {
 
   var fillForm = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var _data$username, _data$nameFamily, _data$nameFamily2;
+
       var data,
           result,
           _args = arguments;
@@ -7243,7 +7800,7 @@ var Users = function Users() {
               data = _args.length > 0 && _args[0] !== undefined ? _args[0] : null;
               dispatch((0,_state_layout_layoutActions__WEBPACK_IMPORTED_MODULE_11__.setLoadingAction)(true));
               _context.next = 4;
-              return entity.getPage(data === null || data === void 0 ? void 0 : data.username, data === null || data === void 0 ? void 0 : data.nameFamily, data === null || data === void 0 ? void 0 : data.nameFamily);
+              return entity.getPagination((_data$username = data === null || data === void 0 ? void 0 : data.username) !== null && _data$username !== void 0 ? _data$username : "", (_data$nameFamily = data === null || data === void 0 ? void 0 : data.nameFamily) !== null && _data$nameFamily !== void 0 ? _data$nameFamily : "", (_data$nameFamily2 = data === null || data === void 0 ? void 0 : data.nameFamily) !== null && _data$nameFamily2 !== void 0 ? _data$nameFamily2 : "");
 
             case 4:
               result = _context.sent;
@@ -7309,7 +7866,6 @@ var Users = function Users() {
             className: "col-sm-6",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("input", _objectSpread(_objectSpread({}, register("username")), {}, {
               className: (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === "username" ? "form-control is-invalid" : "form-control",
-              type: "number",
               placeholder: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.usersPage.username,
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading
             })), (messageState === null || messageState === void 0 ? void 0 : messageState.messageField) === "username" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
@@ -7340,6 +7896,7 @@ var Users = function Users() {
               type: "button",
               onClick: handleSubmit(onSubmit),
               disabled: layoutState === null || layoutState === void 0 ? void 0 : layoutState.loading,
+              title: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.usersPage.searchSubmit,
               children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.usersPage.searchSubmit
             })
           })
@@ -7374,8 +7931,7 @@ var Users = function Users() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("th", {
         scope: "col",
         style: {
-          width: "180px",
-          textAlign: "center"
+          width: "180px"
         },
         children: _constants_strings__WEBPACK_IMPORTED_MODULE_7__.general.actions
       })]
@@ -8120,7 +8676,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "AddCategory": () => (/* reexport safe */ _Category_AddCategory__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   "EditCategory": () => (/* reexport safe */ _Category_EditCategory__WEBPACK_IMPORTED_MODULE_8__["default"]),
 /* harmony export */   "Books": () => (/* reexport safe */ _Book_Books__WEBPACK_IMPORTED_MODULE_9__["default"]),
-/* harmony export */   "EditBook": () => (/* reexport safe */ _Book_EditBook__WEBPACK_IMPORTED_MODULE_10__["default"])
+/* harmony export */   "AddBook": () => (/* reexport safe */ _Book_AddBook__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   "EditBook": () => (/* reexport safe */ _Book_EditBook__WEBPACK_IMPORTED_MODULE_11__["default"])
 /* harmony export */ });
 /* harmony import */ var _Dashboard_Dashboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Dashboard/Dashboard */ "./resources/js/resources/Pages/Dashboard/Dashboard.js");
 /* harmony import */ var _User_Login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./User/Login */ "./resources/js/resources/Pages/User/Login.js");
@@ -8132,7 +8689,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Category_AddCategory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Category/AddCategory */ "./resources/js/resources/Pages/Category/AddCategory.js");
 /* harmony import */ var _Category_EditCategory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Category/EditCategory */ "./resources/js/resources/Pages/Category/EditCategory.js");
 /* harmony import */ var _Book_Books__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Book/Books */ "./resources/js/resources/Pages/Book/Books.js");
-/* harmony import */ var _Book_EditBook__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Book/EditBook */ "./resources/js/resources/Pages/Book/EditBook.js");
+/* harmony import */ var _Book_AddBook__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Book/AddBook */ "./resources/js/resources/Pages/Book/AddBook.js");
+/* harmony import */ var _Book_EditBook__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Book/EditBook */ "./resources/js/resources/Pages/Book/EditBook.js");
+
 
 
 
@@ -8865,7 +9424,10 @@ function Sidebar() {
             children: _constants_strings__WEBPACK_IMPORTED_MODULE_4__.general.brand
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("small", {
-          children: _constants_strings__WEBPACK_IMPORTED_MODULE_4__.general.admin
+          children: lsUser === null || lsUser === void 0 ? void 0 : lsUser.username
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("p", {
+          className: "mb-0",
+          children: "".concat(lsUser === null || lsUser === void 0 ? void 0 : lsUser.name, " ").concat(lsUser === null || lsUser === void 0 ? void 0 : lsUser.family)
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(simplebar_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
         className: "sidebar-nav",
@@ -8882,7 +9444,12 @@ function Sidebar() {
               })
             }), _constants_strings__WEBPACK_IMPORTED_MODULE_4__.sidebar.dashboard]
           })
-        }), renderLinks(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("li", {
+        }), renderLinks(), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+          className: "d-flex justify-content-center",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+            className: "separator-sidebar"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("li", {
           className: "nav-item",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Link, {
             className: page === "ViewUser" ? "nav-link active" : "nav-link",
@@ -9134,6 +9701,9 @@ function AuthRoute() {
             path: "".concat(_constants__WEBPACK_IMPORTED_MODULE_6__.basePath, "/categories"),
             element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages__WEBPACK_IMPORTED_MODULE_2__.Categories, {})
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
+            path: "".concat(_constants__WEBPACK_IMPORTED_MODULE_6__.basePath, "/books/add"),
+            element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages__WEBPACK_IMPORTED_MODULE_2__.AddBook, {})
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
             path: "".concat(_constants__WEBPACK_IMPORTED_MODULE_6__.basePath, "/books/edit/:bookId"),
             element: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Pages__WEBPACK_IMPORTED_MODULE_2__.EditBook, {})
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_9__.Route, {
@@ -9209,6 +9779,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AuthRoute__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AuthRoute */ "./resources/js/resources/navigation/AuthRoute.js");
 
 
+
+/***/ }),
+
+/***/ "./resources/js/resources/validations/Book/AddBookSchema.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/resources/validations/Book/AddBookSchema.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var yup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! yup */ "./node_modules/yup/es/index.js");
+/* harmony import */ var _constants_strings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../constants/strings */ "./resources/js/constants/strings.js");
+
+
+var addBookSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
+  name: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.name)).min(3, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.minMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.name).replace(":min", "3")).max(50, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.name).replace(":max", "50")).required(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.requiredMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.name)),
+  image: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.image)).max(100, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.image).replace(":max", "100")),
+  description: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.description)).max(1000, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.description).replace(":max", "1000")),
+  extraInfo: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.extraInfo)).max(1000, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.extraInfo).replace(":max", "1000")),
+  categoryId: yup__WEBPACK_IMPORTED_MODULE_0__.number().typeError(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.numberMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.categoryId)).required(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.requiredMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.categoryId)),
+  tags: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.tags)).max(1000, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.addBookPage.tags).replace(":max", "1000"))
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (addBookSchema);
 
 /***/ }),
 
@@ -9389,7 +9986,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var loginSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
-  username: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username)).min(6, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.minMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username).replace(":min", "6")).max(6, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username).replace(":max", "6")).required(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.requiredMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username)),
+  username: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username)).min(5, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.minMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username).replace(":min", "5")).max(50, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username).replace(":max", "50")).required(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.requiredMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.username)),
   password: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.password)).min(4, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.minMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.password).replace(":min", "4")).max(4, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.password).replace(":max", "4")).required(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.requiredMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.loginPage.password))
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (loginSchema);
@@ -9412,7 +10009,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var userSearchSchema = yup__WEBPACK_IMPORTED_MODULE_0__.object().shape({
-  username: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.usersPage.username)).max(11, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.usersPage.username).replace(":max", "6")),
+  username: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.usersPage.username)).max(50, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.usersPage.username).replace(":max", "50")),
   nameFamily: yup__WEBPACK_IMPORTED_MODULE_0__.string(_constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.stringMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.usersPage.nameFamily)).max(50, _constants_strings__WEBPACK_IMPORTED_MODULE_1__.validation.maxMessage.replace(":field", _constants_strings__WEBPACK_IMPORTED_MODULE_1__.usersPage.nameFamily).replace(":max", "50"))
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (userSearchSchema);
@@ -9436,7 +10033,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addCategorySchema": () => (/* reexport safe */ _Category_AddCategorySchema__WEBPACK_IMPORTED_MODULE_5__["default"]),
 /* harmony export */   "editCategorySchema": () => (/* reexport safe */ _Category_EditCategorySchema__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   "bookSearchSchema": () => (/* reexport safe */ _Book_BookSearchSchema__WEBPACK_IMPORTED_MODULE_7__["default"]),
-/* harmony export */   "editBookSchema": () => (/* reexport safe */ _Book_EditBookSchema__WEBPACK_IMPORTED_MODULE_8__["default"])
+/* harmony export */   "addBookSchema": () => (/* reexport safe */ _Book_AddBookSchema__WEBPACK_IMPORTED_MODULE_8__["default"]),
+/* harmony export */   "editBookSchema": () => (/* reexport safe */ _Book_EditBookSchema__WEBPACK_IMPORTED_MODULE_9__["default"])
 /* harmony export */ });
 /* harmony import */ var _User_LoginSchema__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./User/LoginSchema */ "./resources/js/resources/validations/User/LoginSchema.js");
 /* harmony import */ var _User_UserSearchSchema__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./User/UserSearchSchema */ "./resources/js/resources/validations/User/UserSearchSchema.js");
@@ -9446,7 +10044,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Category_AddCategorySchema__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Category/AddCategorySchema */ "./resources/js/resources/validations/Category/AddCategorySchema.js");
 /* harmony import */ var _Category_EditCategorySchema__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Category/EditCategorySchema */ "./resources/js/resources/validations/Category/EditCategorySchema.js");
 /* harmony import */ var _Book_BookSearchSchema__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Book/BookSearchSchema */ "./resources/js/resources/validations/Book/BookSearchSchema.js");
-/* harmony import */ var _Book_EditBookSchema__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Book/EditBookSchema */ "./resources/js/resources/validations/Book/EditBookSchema.js");
+/* harmony import */ var _Book_AddBookSchema__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Book/AddBookSchema */ "./resources/js/resources/validations/Book/AddBookSchema.js");
+/* harmony import */ var _Book_EditBookSchema__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Book/EditBookSchema */ "./resources/js/resources/validations/Book/EditBookSchema.js");
+
 
 
 
@@ -9984,9 +10584,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "FETCH_LOGIN_REQUEST_ACTION": () => (/* binding */ FETCH_LOGIN_REQUEST_ACTION),
 /* harmony export */   "FETCH_LOGIN_SUCCESS_ACTION": () => (/* binding */ FETCH_LOGIN_SUCCESS_ACTION),
 /* harmony export */   "FETCH_LOGIN_FAILURE_ACTION": () => (/* binding */ FETCH_LOGIN_FAILURE_ACTION),
+/* harmony export */   "FETCH_AUTH_USER_REQUEST_ACTION": () => (/* binding */ FETCH_AUTH_USER_REQUEST_ACTION),
+/* harmony export */   "FETCH_AUTH_USER_SUCCESS_ACTION": () => (/* binding */ FETCH_AUTH_USER_SUCCESS_ACTION),
+/* harmony export */   "FETCH_AUTH_USER_FAILURE_ACTION": () => (/* binding */ FETCH_AUTH_USER_FAILURE_ACTION),
 /* harmony export */   "FETCH_LOGOUT_REQUEST_ACTION": () => (/* binding */ FETCH_LOGOUT_REQUEST_ACTION),
 /* harmony export */   "CLEAR_LOGIN_REQUEST_ACTION": () => (/* binding */ CLEAR_LOGIN_REQUEST_ACTION),
 /* harmony export */   "fetchLoginAction": () => (/* binding */ fetchLoginAction),
+/* harmony export */   "fetchAuthUserAction": () => (/* binding */ fetchAuthUserAction),
 /* harmony export */   "fetchLogoutAction": () => (/* binding */ fetchLogoutAction),
 /* harmony export */   "clearLogoutAction": () => (/* binding */ clearLogoutAction)
 /* harmony export */ });
@@ -10011,6 +10615,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var FETCH_LOGIN_REQUEST_ACTION = "FETCH_LOGIN_REQUEST_ACTION";
 var FETCH_LOGIN_SUCCESS_ACTION = "FETCH_LOGIN_SUCCESS_ACTION";
 var FETCH_LOGIN_FAILURE_ACTION = "FETCH_LOGIN_FAILURE_ACTION";
+var FETCH_AUTH_USER_REQUEST_ACTION = "FETCH_AUTH_USER_REQUEST_ACTION";
+var FETCH_AUTH_USER_SUCCESS_ACTION = "FETCH_AUTH_USER_SUCCESS_ACTION";
+var FETCH_AUTH_USER_FAILURE_ACTION = "FETCH_AUTH_USER_FAILURE_ACTION";
 var FETCH_LOGOUT_REQUEST_ACTION = "FETCH_LOGOUT_REQUEST_ACTION";
 var CLEAR_LOGIN_REQUEST_ACTION = "CLEAR_LOGIN_REQUEST_ACTION";
 var fetchLoginAction = function fetchLoginAction(username, password, type) {
@@ -10088,25 +10695,93 @@ var fetchLoginAction = function fetchLoginAction(username, password, type) {
     };
   }();
 };
-var fetchLogoutAction = function fetchLogoutAction() {
+var fetchAuthUserAction = function fetchAuthUserAction() {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(dispatch, getState) {
+      var response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _context2.prev = 0;
-              _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].clearLS();
+              dispatch({
+                type: FETCH_AUTH_USER_REQUEST_ACTION
+              });
+              _context2.prev = 1;
               _context2.next = 4;
+              return (0,_http__WEBPACK_IMPORTED_MODULE_2__.postWithToken)(_constants__WEBPACK_IMPORTED_MODULE_1__.USERS_API_URLS.FETCH_AUTH_USER);
+
+            case 4:
+              response = _context2.sent;
+
+              if (_utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].isJsonString(response.data)) {
+                _context2.next = 8;
+                break;
+              }
+
+              dispatch({
+                type: FETCH_AUTH_USER_FAILURE_ACTION
+              });
+              return _context2.abrupt("return");
+
+            case 8:
+              if (response.data._result === "1") {
+                _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].setLSVariable("token", response.data._token.access_token);
+                _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].setLSVariable("user", JSON.stringify(response.data._token.user));
+                dispatch({
+                  type: FETCH_AUTH_USER_SUCCESS_ACTION,
+                  payload: {
+                    token: localStorage.getItem("token"),
+                    user: localStorage.getItem("user")
+                  }
+                });
+              } else {
+                dispatch({
+                  type: FETCH_AUTH_USER_FAILURE_ACTION
+                });
+              }
+
+              _context2.next = 14;
+              break;
+
+            case 11:
+              _context2.prev = 11;
+              _context2.t0 = _context2["catch"](1);
+              dispatch({
+                type: FETCH_AUTH_USER_FAILURE_ACTION
+              });
+
+            case 14:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 11]]);
+    }));
+
+    return function (_x3, _x4) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+};
+var fetchLogoutAction = function fetchLogoutAction() {
+  return /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch, getState) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.prev = 0;
+              _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].clearLS();
+              _context3.next = 4;
               return (0,_http__WEBPACK_IMPORTED_MODULE_2__.postWithToken)(_constants__WEBPACK_IMPORTED_MODULE_1__.USERS_API_URLS.LOGOUT);
 
             case 4:
-              _context2.next = 8;
+              _context3.next = 8;
               break;
 
             case 6:
-              _context2.prev = 6;
-              _context2.t0 = _context2["catch"](0);
+              _context3.prev = 6;
+              _context3.t0 = _context3["catch"](0);
 
             case 8:
               dispatch({
@@ -10115,23 +10790,23 @@ var fetchLogoutAction = function fetchLogoutAction() {
 
             case 9:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2, null, [[0, 6]]);
+      }, _callee3, null, [[0, 6]]);
     }));
 
-    return function (_x3, _x4) {
-      return _ref2.apply(this, arguments);
+    return function (_x5, _x6) {
+      return _ref3.apply(this, arguments);
     };
   }();
 };
 var clearLogoutAction = function clearLogoutAction() {
   return /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(dispatch, getState) {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(dispatch, getState) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               try {
                 _utils_Utils__WEBPACK_IMPORTED_MODULE_4__["default"].clearLS();
@@ -10143,14 +10818,14 @@ var clearLogoutAction = function clearLogoutAction() {
 
             case 2:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }));
 
-    return function (_x5, _x6) {
-      return _ref3.apply(this, arguments);
+    return function (_x7, _x8) {
+      return _ref4.apply(this, arguments);
     };
   }();
 };
@@ -10223,6 +10898,28 @@ var userReducer = function userReducer() {
         isAuthenticated: false,
         loading: false,
         error: payload
+      });
+
+    case _userActions__WEBPACK_IMPORTED_MODULE_1__.FETCH_AUTH_USER_REQUEST_ACTION:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        loading: true,
+        error: null
+      });
+
+    case _userActions__WEBPACK_IMPORTED_MODULE_1__.FETCH_AUTH_USER_SUCCESS_ACTION:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isAuthenticated: true,
+        token: payload.token,
+        user: payload.user,
+        loading: false,
+        error: null
+      });
+
+    case _userActions__WEBPACK_IMPORTED_MODULE_1__.FETCH_AUTH_USER_FAILURE_ACTION:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        isAuthenticated: true,
+        loading: false,
+        error: null
       });
 
     case _userActions__WEBPACK_IMPORTED_MODULE_1__.FETCH_LOGOUT_REQUEST_ACTION:

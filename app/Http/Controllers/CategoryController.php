@@ -6,12 +6,18 @@ use App\Http\Requests\Category\GetCategoryRequest;
 use App\Http\Requests\Category\IndexCategoriesRequest;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use Illuminate\Support\Facades\Request;
 
 class CategoryController extends Controller
 {
     public function index(IndexCategoriesRequest $request)
     {
         return $this->handleJsonResponse($this->service->getPagination($request->title, $request->page));
+    }
+
+    public function getAll(Request $request)
+    {
+        return $this->handleJsonResponse($this->service->getAll());
     }
 
     public function show(GetCategoryRequest $request)

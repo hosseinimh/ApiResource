@@ -46,10 +46,10 @@ const Users = () => {
     const fillForm = async (data = null) => {
         dispatch(setLoadingAction(true));
 
-        let result = await entity.getPage(
-            data?.username,
-            data?.nameFamily,
-            data?.nameFamily
+        let result = await entity.getPagination(
+            data?.username ?? "",
+            data?.nameFamily ?? "",
+            data?.nameFamily ?? ""
         );
 
         dispatch(setLoadingAction(false));
@@ -108,7 +108,6 @@ const Users = () => {
                                     ? "form-control is-invalid"
                                     : "form-control"
                             }
-                            type="number"
                             placeholder={strings.username}
                             disabled={layoutState?.loading}
                         />
@@ -146,6 +145,7 @@ const Users = () => {
                             type="button"
                             onClick={handleSubmit(onSubmit)}
                             disabled={layoutState?.loading}
+                            title={strings.searchSubmit}
                         >
                             {strings.searchSubmit}
                         </button>
@@ -167,7 +167,7 @@ const Users = () => {
                 {strings.name}
             </th>
             <th scope="col">{strings.family}</th>
-            <th scope="col" style={{ width: "180px", textAlign: "center" }}>
+            <th scope="col" style={{ width: "180px" }}>
                 {general.actions}
             </th>
         </tr>

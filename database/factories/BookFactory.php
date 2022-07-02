@@ -19,7 +19,7 @@ class BookFactory extends Factory
             'image' => null,
             'description' => $this->faker->text,
             'extra_info' => $this->faker->text,
-            'tags' => $this->craeteTags($this->faker->text),
+            'tags' => $this->craeteTags($this->faker->text(50)),
         ];
     }
 

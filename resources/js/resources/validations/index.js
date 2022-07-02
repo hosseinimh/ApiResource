@@ -6,6 +6,7 @@ import categorySearchSchema from "./Category/CategorySearchSchema";
 import addCategorySchema from "./Category/AddCategorySchema";
 import editCategorySchema from "./Category/EditCategorySchema";
 import bookSearchSchema from "./Book/BookSearchSchema";
+import addBookSchema from "./Book/AddBookSchema";
 import editBookSchema from "./Book/EditBookSchema";
 
 export {
@@ -17,5 +18,6 @@ export {
     addCategorySchema,
     editCategorySchema,
     bookSearchSchema,
+    addBookSchema,
     editBookSchema,
 };

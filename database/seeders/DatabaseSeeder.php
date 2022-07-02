@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->info('');
         $this->command->info('****');
-        $this->command->line('Username: 123456');
+        $this->command->line('Username: admin');
         $this->command->line('Password: 1234');
         $this->command->info('****');
         $this->command->info('');

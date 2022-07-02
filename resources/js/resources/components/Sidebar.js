@@ -154,7 +154,8 @@ function Sidebar() {
                         />
                         <p>{general.brand}</p>
                     </a>
-                    <small>{general.admin}</small>
+                    <small>{lsUser?.username}</small>
+                    <p className="mb-0">{`${lsUser?.name} ${lsUser?.family}`}</p>
                 </div>
                 <SimpleBar className="sidebar-nav" data-coreui="navigation">
                     <li className="nav-item">
@@ -175,6 +176,9 @@ function Sidebar() {
                         </Link>
                     </li>
                     {renderLinks()}
+                    <div className="d-flex justify-content-center">
+                        <div className="separator-sidebar"></div>
+                    </div>
                     <li className="nav-item">
                         <Link
                             className={

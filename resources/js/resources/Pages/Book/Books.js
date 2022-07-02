@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BsPencilFill } from "react-icons/bs";
@@ -21,6 +22,7 @@ const Books = () => {
     const dispatch = useDispatch();
     const layoutState = useSelector((state) => state.layoutReducer);
     const messageState = useSelector((state) => state.messageReducer);
+    const navigate = useNavigate();
     let entity = new Entity();
     const columnsCount = 6;
     const [items, setItems] = useState(null);
@@ -42,7 +44,7 @@ const Books = () => {
     const fillForm = async (data = null) => {
         dispatch(setLoadingAction(true));
 
-        let result = await entity.getPage(data?.name, data?.categoryId);
+        let result = await entity.getPagination(data?.name, data?.categoryId);
 
         dispatch(setLoadingAction(false));
 
@@ -60,7 +62,12 @@ const Books = () => {
         }
 
         setItems(result.items);
+
         dispatch(setLoadingAction(false));
+    };
+
+    const onAdd = () => {
+        navigate(`${basePath}/books/add`);
     };
 
     const onEdit = (id) => {
@@ -90,7 +97,6 @@ const Books = () => {
                                     ? "form-control is-invalid"
                                     : "form-control"
                             }
-                            type="number"
                             placeholder={strings.name}
                             disabled={layoutState?.loading}
                         />
@@ -110,6 +116,7 @@ const Books = () => {
                             type="button"
                             onClick={handleSubmit(onSubmit)}
                             disabled={layoutState?.loading}
+                            title={strings.searchSubmit}
                         >
                             {strings.searchSubmit}
                         </button>
@@ -172,6 +179,7 @@ const Books = () => {
                                 >
                                     <img
                                         src={`/img/books/${item?.image}`}
+                                        className="mb-2"
                                         style={{
                                             width: "100px",
                                         }}
@@ -238,6 +246,19 @@ const Books = () => {
     return (
         <Page page={"Books"} errors={errors}>
             {renderFilterSection()}
+            <div className="row mb-2">
+                <div className="col-sm-12 my-4">
+                    <button
+                        className="btn btn-success px-4"
+                        type="button"
+                        title={strings.addBook}
+                        onClick={() => onAdd()}
+                        disabled={layoutState?.loading}
+                    >
+                        {strings.addBook}
+                    </button>
+                </div>
+            </div>
             <div className="row mb-4">
                 <Table
                     items={items}

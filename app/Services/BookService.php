@@ -35,8 +35,8 @@ class BookService extends Service
             'name' => $name,
             'image' => null,
             'description' => $description,
-            'extraInfo' => $extraInfo,
-            'categoryId' => $categoryId,
+            'extra_info' => $extraInfo,
+            'category_id' => $categoryId,
             'tags' => $tags,
         ];
         $book = Entity::create($data);
@@ -61,8 +61,8 @@ class BookService extends Service
         $data = [
             'name' => $name,
             'description' => $description,
-            'extraInfo' => $extraInfo,
-            'categoryId' => $categoryId,
+            'extra_info' => $extraInfo,
+            'category_id' => $categoryId,
             'tags' => $tags,
         ];
         $updated = $book->update($data);

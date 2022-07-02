@@ -8,6 +8,7 @@ import Categories from "./Category/Categories";
 import AddCategory from "./Category/AddCategory";
 import EditCategory from "./Category/EditCategory";
 import Books from "./Book/Books";
+import AddBook from "./Book/AddBook";
 import EditBook from "./Book/EditBook";
 
 export {
@@ -21,5 +22,6 @@ export {
     AddCategory,
     EditCategory,
     Books,
+    AddBook,
     EditBook,
 };

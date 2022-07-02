@@ -5,16 +5,16 @@ const loginSchema = yup.object().shape({
     username: yup
         .string(validation.stringMessage.replace(":field", strings.username))
         .min(
-            6,
+            5,
             validation.minMessage
                 .replace(":field", strings.username)
-                .replace(":min", "6")
+                .replace(":min", "5")
         )
         .max(
-            6,
+            50,
             validation.maxMessage
                 .replace(":field", strings.username)
-                .replace(":max", "6")
+                .replace(":max", "50")
         )
         .required(
             validation.requiredMessage.replace(":field", strings.username)

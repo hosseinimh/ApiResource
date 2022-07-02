@@ -126,11 +126,7 @@ const Login = () => {
                                 {strings.description}
                             </p>
                             <AlertState />
-                            <form
-                                id="loginForm"
-                                method="POST"
-                                action={`${rootPath}users/login_web`}
-                            >
+                            <form>
                                 <div className="row">
                                     {renderInputRow("username")}
                                     {renderInputRow("password", "password")}

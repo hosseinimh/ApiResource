@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { InsertPage } from "../_layout";
-import { Category as Entity, Project } from "../../../http/entities";
+import { Category as Entity } from "../../../http/entities";
 import {
     addCategoryPage as strings,
     general,
 } from "../../../constants/strings";
 import { addCategorySchema as schema } from "../../validations";
-import {
-    MESSAGE_TYPES,
-    MESSAGE_CODES,
-    basePath,
-    PROJECT_STATUSES,
-} from "../../../constants";
+import { MESSAGE_TYPES, MESSAGE_CODES, basePath } from "../../../constants";
 import {
     setLoadingAction,
     setTitleAction,
@@ -25,7 +20,6 @@ import {
     clearMessageAction,
     setMessageAction,
 } from "../../../state/message/messageActions";
-import utils from "../../../utils/Utils";
 
 const AddCategory = () => {
     const dispatch = useDispatch();
@@ -37,7 +31,6 @@ const AddCategory = () => {
     const [isCurrent, setIsCurrent] = useState(true);
     const {
         register,
-        setValue,
         handleSubmit,
         formState: { errors },
     } = useForm({
@@ -47,9 +40,8 @@ const AddCategory = () => {
     const onSubmit = async (data) => {
         dispatch(setLoadingAction(true));
         dispatch(clearMessageAction());
-        window.scrollTo(0, 0);
 
-        let result = await entity.store(data?.title);
+        let result = await entity.store(data.title);
 
         if (result === null) {
             dispatch(setLoadingAction(false));
@@ -66,12 +58,13 @@ const AddCategory = () => {
 
         dispatch(
             setMessageAction(
-                strings.saved,
+                strings.submitted,
                 MESSAGE_TYPES.SUCCESS,
                 MESSAGE_CODES.OK,
                 false
             )
         );
+
         navigate(callbackUrl);
     };
 
@@ -80,7 +73,7 @@ const AddCategory = () => {
     };
 
     useEffect(() => {
-        dispatch(setTitleAction(strings.title));
+        dispatch(setTitleAction(strings._title));
 
         return () => {
             setIsCurrent(false);
@@ -93,7 +86,7 @@ const AddCategory = () => {
             : strings[`${field}Placeholder`];
 
         return (
-            <div className="col-md-12 col-sm-12 pb-4">
+            <div className="col-12 pb-4">
                 <label className="form-label" htmlFor={field}>
                     {strings[field]}
                 </label>
@@ -135,7 +128,7 @@ const AddCategory = () => {
                             {general.submit}
                         </button>
                         <button
-                            className="btn btn-secondary px-4"
+                            className="btn btn-secondary"
                             type="button"
                             onClick={onCancel}
                             disabled={layoutState?.loading}

@@ -19,6 +19,7 @@ import {
     clearMessageAction,
     setMessageAction,
 } from "../../../state/message/messageActions";
+import { fetchAuthUserAction } from "../../../state/user/userActions";
 
 const EditUser = () => {
     const dispatch = useDispatch();
@@ -93,6 +94,10 @@ const EditUser = () => {
                 false
             )
         );
+
+        if (lsUser?.id === userId) {
+            dispatch(fetchAuthUserAction());
+        }
 
         navigate(callbackUrl);
     };

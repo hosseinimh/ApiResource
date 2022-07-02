@@ -8,6 +8,10 @@ export const FETCH_LOGIN_REQUEST_ACTION = "FETCH_LOGIN_REQUEST_ACTION";
 export const FETCH_LOGIN_SUCCESS_ACTION = "FETCH_LOGIN_SUCCESS_ACTION";
 export const FETCH_LOGIN_FAILURE_ACTION = "FETCH_LOGIN_FAILURE_ACTION";
 
+export const FETCH_AUTH_USER_REQUEST_ACTION = "FETCH_AUTH_USER_REQUEST_ACTION";
+export const FETCH_AUTH_USER_SUCCESS_ACTION = "FETCH_AUTH_USER_SUCCESS_ACTION";
+export const FETCH_AUTH_USER_FAILURE_ACTION = "FETCH_AUTH_USER_FAILURE_ACTION";
+
 export const FETCH_LOGOUT_REQUEST_ACTION = "FETCH_LOGOUT_REQUEST_ACTION";
 
 export const CLEAR_LOGIN_REQUEST_ACTION = "CLEAR_LOGIN_REQUEST_ACTION";
@@ -59,6 +63,47 @@ export const fetchLoginAction =
             });
         }
     };
+
+export const fetchAuthUserAction = () => async (dispatch, getState) => {
+    dispatch({ type: FETCH_AUTH_USER_REQUEST_ACTION });
+
+    try {
+        const response = await postWithToken(API_URLS.FETCH_AUTH_USER);
+
+        if (!utils.isJsonString(response.data)) {
+            dispatch({
+                type: FETCH_AUTH_USER_FAILURE_ACTION,
+            });
+
+            return;
+        }
+
+        if (response.data._result === "1") {
+            utils.setLSVariable("token", response.data._token.access_token);
+
+            utils.setLSVariable(
+                "user",
+                JSON.stringify(response.data._token.user)
+            );
+
+            dispatch({
+                type: FETCH_AUTH_USER_SUCCESS_ACTION,
+                payload: {
+                    token: localStorage.getItem("token"),
+                    user: localStorage.getItem("user"),
+                },
+            });
+        } else {
+            dispatch({
+                type: FETCH_AUTH_USER_FAILURE_ACTION,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: FETCH_AUTH_USER_FAILURE_ACTION,
+        });
+    }
+};
 
 export const fetchLogoutAction = () => async (dispatch, getState) => {
     try {

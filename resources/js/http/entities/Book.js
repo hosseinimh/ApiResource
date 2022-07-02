@@ -6,7 +6,7 @@ export class Book extends Entity {
         super();
     }
 
-    async getPage(name, categoryId, page = 1) {
+    async getPagination(name, categoryId, page = 1) {
         return await this.handlePostWithToken(API_URLS.FETCH_BOOKS, {
             name: name,
             category_id: categoryId,
@@ -26,7 +26,7 @@ export class Book extends Entity {
         data.append("name", name);
         data.append("image", image);
         data.append("description", description);
-        data.append("extraInfo", extraInfo);
+        data.append("extra_info", extraInfo);
         data.append("category_id", categoryId);
 
         for (var i = 0; i < tags?.length; i++) {
@@ -43,7 +43,7 @@ export class Book extends Entity {
         data.append("name", name);
         data.append("image", image);
         data.append("description", description);
-        data.append("extraInfo", extraInfo);
+        data.append("extra_info", extraInfo);
         data.append("category_id", categoryId);
 
         for (var i = 0; i < tags?.length; i++) {

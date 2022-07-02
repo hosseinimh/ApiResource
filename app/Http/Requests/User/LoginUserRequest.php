@@ -20,7 +20,7 @@ class LoginUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|numeric|digits:6|gt:0',
+            'username' => 'required|min:5|max:50',
             'password' => 'required|digits:4',
         ];
     }
@@ -29,9 +29,8 @@ class LoginUserRequest extends FormRequest
     {
         return [
             'username.required' => __('user.username_required'),
-            'username.numeric' => __('user.username_numeric'),
-            'username.digits' => __('user.username_digits'),
-            'username.gt' => __('user.username_gt'),
+            'username.min' => __('user.username_min'),
+            'username.max' => __('user.username_max'),
             'password.required' => __('user.password_required'),
             'password.numeric' => __('user.password_numeric'),
             'password.digits' => __('user.password_digits'),

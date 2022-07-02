@@ -5,10 +5,10 @@ const userSearchSchema = yup.object().shape({
     username: yup
         .string(validation.stringMessage.replace(":field", strings.username))
         .max(
-            11,
+            50,
             validation.maxMessage
                 .replace(":field", strings.username)
-                .replace(":max", "6")
+                .replace(":max", "50")
         ),
     nameFamily: yup
         .string(validation.stringMessage.replace(":field", strings.nameFamily))

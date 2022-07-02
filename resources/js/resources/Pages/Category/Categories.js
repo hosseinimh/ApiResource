@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BsPencilFill } from "react-icons/bs";
@@ -21,6 +22,7 @@ const Categories = () => {
     const dispatch = useDispatch();
     const layoutState = useSelector((state) => state.layoutReducer);
     const messageState = useSelector((state) => state.messageReducer);
+    const navigate = useNavigate();
     let entity = new Entity();
     const columnsCount = 3;
     const [items, setItems] = useState(null);
@@ -42,7 +44,7 @@ const Categories = () => {
     const fillForm = async (data = null) => {
         dispatch(setLoadingAction(true));
 
-        let result = await entity.getPage(data?.title);
+        let result = await entity.getPagination(data?.title);
 
         dispatch(setLoadingAction(false));
 
@@ -61,6 +63,10 @@ const Categories = () => {
 
         setItems(result.items);
         dispatch(setLoadingAction(false));
+    };
+
+    const onAdd = () => {
+        navigate(`${basePath}/categories/add`);
     };
 
     const onEdit = (id) => {
@@ -90,7 +96,6 @@ const Categories = () => {
                                     ? "form-control is-invalid"
                                     : "form-control"
                             }
-                            type="number"
                             placeholder={strings.title}
                             disabled={layoutState?.loading}
                         />
@@ -110,6 +115,7 @@ const Categories = () => {
                             type="button"
                             onClick={handleSubmit(onSubmit)}
                             disabled={layoutState?.loading}
+                            title={strings.searchSubmit}
                         >
                             {strings.searchSubmit}
                         </button>
@@ -125,7 +131,7 @@ const Categories = () => {
                 #
             </th>
             <th scope="col">{strings.title}</th>
-            <th scope="col" style={{ width: "120px", textAlign: "center" }}>
+            <th scope="col" style={{ width: "120px" }}>
                 {general.actions}
             </th>
         </tr>
@@ -188,6 +194,19 @@ const Categories = () => {
     return (
         <Page page={"Categories"} errors={errors}>
             {renderFilterSection()}
+            <div className="row mb-2">
+                <div className="col-sm-12 my-4">
+                    <button
+                        className="btn btn-success px-4"
+                        type="button"
+                        title={strings.addCategory}
+                        onClick={() => onAdd()}
+                        disabled={layoutState?.loading}
+                    >
+                        {strings.addCategory}
+                    </button>
+                </div>
+            </div>
             <div className="row mb-4">
                 <Table
                     items={items}

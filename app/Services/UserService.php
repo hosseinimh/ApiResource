@@ -22,6 +22,13 @@ class UserService extends Service
         return $this->handleGet($user);
     }
 
+    public function getAuth()
+    {
+        $user = Entity::get(auth('api')->user()->id) ?? null;
+
+        return $this->handleGet($user);
+    }
+
     public function getPagination($username, $nameFamily, $page)
     {
         $users = Entity::getPagination($username, $nameFamily, $nameFamily, $page) ?? null;

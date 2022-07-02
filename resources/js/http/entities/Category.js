@@ -6,11 +6,15 @@ export class Category extends Entity {
         super();
     }
 
-    async getPage(title, page = 1) {
+    async getPagination(title, page = 1) {
         return await this.handlePostWithToken(API_URLS.FETCH_CATEGORIES, {
             title: title,
             page: page,
         });
+    }
+
+    async getAll() {
+        return await this.handlePostWithToken(API_URLS.FETCH_ALL_CATEGORIES);
     }
 
     async get(id) {
