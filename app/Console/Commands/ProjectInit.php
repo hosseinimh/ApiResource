@@ -51,7 +51,7 @@ class ProjectInit extends Command
         Artisan::call('route:clear');
         Artisan::call('config:clear');
         Artisan::call('view:clear');
-        $this->info('Cache cleared successfully.');
+        $this->info('Cache was cleared successfully.');
         $this->info('');
 
         $files = glob(storage_path('app') . '/public/img/books/*');
@@ -62,25 +62,25 @@ class ProjectInit extends Command
             }
         }
 
-        $this->info('Old uploaded files deleted successfully.');
+        $this->info('Old uploaded files were deleted successfully.');
         $this->info('');
 
         Artisan::call('storage:link');
-        $this->info('Symbolic links created successfully.');
+        $this->info('Symbolic links were created successfully.');
         $this->info('');
 
         Artisan::call('migrate:fresh');
-        $this->info('Database tables created successfully.');
+        $this->info('Database tables were created successfully.');
         $this->info('');
 
         User::factory()->create();
-        $this->info('1 user created successfully.');
+        $this->info('1 user was created successfully.');
 
         Category::factory()->count(5)
             ->has(Book::factory()->count(3))
             ->create();
-        $this->info('5 categories created successfully.');
-        $this->info('15 books created successfully.');
+        $this->info('5 categories were created successfully.');
+        $this->info('15 books were created successfully.');
 
         $this->info('');
         $this->info('****');

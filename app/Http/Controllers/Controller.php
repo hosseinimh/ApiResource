@@ -12,6 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 use App\Services\Service;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class Controller extends BaseController
 {
@@ -26,16 +27,26 @@ class Controller extends BaseController
         $this->service = $service;
     }
 
-    public function handleJsonResponse($data, $statusCode = 200, $hasToken = true)
+    public function handleJsonResponse($data, $statusCode = 200, $hasToken = true, $isApi = false)
     {
         $array = [];
 
-        foreach ($data as $key => $value) {
-            $array[$key] = $value;
+        if ($data) {
+            if ($isApi && $data instanceof JsonResource) {
+                $array = $data;
+            } else {
+                foreach ($data as $key => $value) {
+                    $array[$key] = $value;
+                }
+            }
         }
 
         if ($hasToken) {
             $array['_token'] = (new UserService())->refresh();
+        }
+
+        if ($isApi && !$data) {
+            return response()->json(null, $statusCode);
         }
 
         return response()->json($array, $statusCode);

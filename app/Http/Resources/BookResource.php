@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Constants\UploadedFile;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BookResource extends JsonResource

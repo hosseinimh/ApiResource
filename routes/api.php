@@ -34,4 +34,10 @@ Route::middleware(['cors', 'jwt', 'user'])->group(function () {
 // not auth users
 Route::middleware(['cors'])->group(function () {
     Route::post('users/login', [UserController::class, 'login']);
+
+    Route::get('categories', [CategoryController::class, 'indexApi']);
+    Route::get('categories/{id}', [CategoryController::class, 'showApi']);
+
+    Route::get('books', [BookController::class, 'indexApi']);
+    Route::get('books/{id}', [BookController::class, 'showApi']);
 });

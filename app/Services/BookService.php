@@ -28,6 +28,13 @@ class BookService extends Service
         return $this->handleGetItems($books);
     }
 
+    public function getAll()
+    {
+        $books = Entity::getAll() ?? null;
+
+        return $this->handleGetItems($books);
+    }
+
     public function store($name, $description, $extraInfo, $categoryId, $tags)
     {
         $tags = (is_array($tags) && count($tags) > 0) ? implode('#', $tags) : null;

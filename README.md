@@ -7,16 +7,17 @@
 A simple project powered by PHP Laravel framework as backend and React.Js and Bootstrap framework as frontend.
 
 ## When to use
-API Resource is an online REST API that you can use whenever you need some fake data. It can be on a host, as a Wordpress plugin or to test things locally.
+API Resource is an online REST API that you can use whenever you need some fake data.
+It can be on a host, as a WordPress plugin or to test things locally.
 
 
 ## Installation
-As its a PHP Laravel project, first you need to install Composer then run this command in CMD:
+Its a PHP Laravel project, so first you need to install Composer then run this command in CMD:
 ```bash
 composer create-project laravel/laravel api_resource
 ```
 
-Project uses React.JS as frontend framework so, first you need to insall `NPM` then run this command in CMD:
+The project uses React.JS as a frontend framework, so you need to install `NPM` first then run this command in CMD:
 ```bash
 npm run watch
 ```
@@ -26,8 +27,8 @@ npm run watch
 
 - Server
 
-To run on server, move all folders and files except `public` to a new folder, named `frm` for example.
-It should be one level upper than `public` folder for security reasons.
+To run on a server, move all folders and files except `public` to a new folder, named `frm` for example.
+It should be one level upper than the `public` folder for security reasons.
 
 Open `.env` file in `frm` folder, and set database name, username and password of your database connection:
 ```bash
@@ -40,18 +41,18 @@ Move content of `public` folder to `public_html`.
 
 - Server & localhost
 
-Set `$localhost = 0;`  in `index.php`, in case you're running project on server:
+Set `$localhost = 0;`  in `index.php`, in case you're running the project on a server:
 
 ```bash
-  $localhost = 1; // set 1 if you're running project on localhost, otherwise 0
+  $localhost = 1; // set 1 if you're running the project on localhost, otherwise 0
   $framework = $localhost === 1 ? '//../' : '//../frm/';
 ```
 
 ### JS Configuration
-If you're using project on server, open `resources/js/constants/apiUrls.js`,
-modify `LOCALHOST` value to 0 and `https://hosseinimh.com` to your server url:
+If you're running the project on a server, open `resources/js/constants/apiUrls.js`,
+modify `LOCALHOST` value to 0 and `https://hosseinimh.com` to your server URL:
 ```bash
-const LOCALHOST = 1; // set 1 if you're running project on localhost, otherwise 0
+const LOCALHOST = 1; // set 1 if you're running the project on localhost, otherwise 0
 
 export const SERVER_URL =
     LOCALHOST === 1
@@ -60,29 +61,29 @@ export const SERVER_URL =
 ```
 
 #### Initialization
-If you're on server, go to `/initialize`:
+If you're on a server, go to `/initialize`:
 ```bash
   GET /initialize
 ```
-If you're on localhost, you have two options to initialize project:
+If you're on localhost, you have two options to initialize the project:
 
 - Go to `/initialize`
 ```bash
   GET /initialize
 ```
- - Or simply run custom console command:
+ - Or simply run a custom console command:
   ```bash
   php artisan project:init
 ```
 If everything goes well, the output will be like this:
 ```bash
-Cache cleared successfully.
-Old uploaded files deleted successfully.
-Symbolic links created successfully.
-Database tables created successfully.
-1 user created successfully.
-5 categories created successfully.
-15 books created successfully.
+Cache was cleared successfully.
+Old uploaded files were deleted successfully.
+Symbolic links were created successfully.
+Database tables were created successfully.
+1 user was created successfully.
+5 categories were created successfully.
+15 books were created successfully.
 
 ****
 Username: admin
@@ -92,7 +93,7 @@ Password: 1234
 READY TO GO!
 ```
 
-If you want not to reset your database data and initialize project anymore, just remove this line in `routes/web.php`:
+If you don't want to reset your database data and initialize the project anymore, just remove this line in `routes/web.php`:
 ```bash
   Route::get('initialize', [Controller::class, 'initialize']);
 ```
@@ -135,7 +136,7 @@ Returns a specific category.
 | `id`      | `integer` | **Required**. Id of book to fetch |
 
 **Note:**
-Resources have relations: Categories have many books. Below are tables schema:
+Resources have relations: Categories have many books. Below are the tables schemas:
 
 ![Logo](https://api-resource.hosseinimh.com/github/img/schema.jpg)
 
@@ -143,30 +144,33 @@ Resources have relations: Categories have many books. Below are tables schema:
 `GET` HTTP method is supported.
 ## Documentation
 #### Architecture
-Project is based on MVC architecture, which Laravel recommends.
-It uses Models, Controllers and js files as Views.
+The project is based on MVC architecture, which Laravel recommends.
+It uses Models, Controllers, and js files as Views.
 
-Coding schema of project is shown on picture below:
+The coding schema of the project is shown in the picture below:
 
 ![Logo](https://api-resource.hosseinimh.com/github/img/architecture1.jpg)
 
-Project uses API Resources as Repositories to standardize responses.
-It also utilize Laravel ORM Laravel, Eloquents, for readabilty and integration.
+The project uses `API Resources` as `Repositories` to standardize responses.
+It also utilizes Laravel ORM Laravel, Eloquents, for readability and integration.
+
+#### Database
+The project uses `MySQL` which is an open-source relational database management system.
 
 #### JWT Tokens
 As API calls are stateless, sessions can't be used to identify users.
 I use `JWT tokens` to authenticate and authorize users.
-On backend, I use `middlewares` to handle users accessing endpoint routes.
+On the backend, I use `middlewares` to handle users accessing endpoint routes.
 
 #### UI
-Project utilizes [coreui](https://coreui.io/) which is a Bootstrap Admin Dashboard Template, and I made some changes.
+The project utilizes [coreui](https://coreui.io/) which is a free Bootstrap Admin Dashboard Template, and I made some changes to it.
 
 
 ## Authors
 
 - [@hosseinimh](https://www.github.com/hosseinimh)
 
-API Resource was designed, implemented, documented, and maintained by Mahmouud Hosseini, a Full Stack developer.
+API Resource was designed, implemented, documented, and maintained by Mahmoud Hosseini, a Full Stack developer.
 
 - Email: hosseinimh@gmail.com
 
@@ -193,9 +197,9 @@ API Resource was designed, implemented, documented, and maintained by Mahmouud H
 
 I'm a Full Stack developer coding Php Laravel, React.JS, C#, ...
 
-Learning programming for more 18 years.
+Learning programming for more than 18 years.
 
 
 ## 🛠 Skills
-Javascript, HTML, CSS, Sass, Bootstrap, Material UI, React.JS, React native, PHP Laravel, PHP Codeigniter, Wordpress, ...
+Javascript, HTML, CSS, Sass, Bootstrap, Material UI, React.JS, React native, PHP Laravel, PHP Codeigniter, WordPress, ...
 

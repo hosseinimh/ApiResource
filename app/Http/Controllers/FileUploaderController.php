@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Constants\UploadedFile;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
-use Exception;
 
 class FileUploaderController extends Controller
 {

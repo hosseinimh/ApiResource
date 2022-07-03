@@ -39,6 +39,11 @@ class Book extends Model
         return self::where('name', 'LIKE', '%' . $name . '%')->where('category_id', $categoryId)->orderBy('name', 'ASC')->orderBy('id', 'ASC')->get();
     }
 
+    public static function getAll()
+    {
+        return self::orderBy('name', 'ASC')->orderBy('id', 'ASC')->get();
+    }
+
     public static function getBooksCount()
     {
         return self::count();

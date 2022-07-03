@@ -1,4 +1,4 @@
-const LOCALHOST = 1; // set 1 if you're running project on localhost, otherwise 0
+const LOCALHOST = 1; // set 1 if you're running the project on localhost, otherwise 0
 
 export const SERVER_URL =
     LOCALHOST === 1
