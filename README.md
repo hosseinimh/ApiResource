@@ -114,7 +114,7 @@ As mentioned before, default credentials are:
 
 **username:** admin
 
-**passwrod:** 1234
+**password:** 1234
 ## API Reference
 
 ### Resources
