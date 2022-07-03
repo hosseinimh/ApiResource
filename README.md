@@ -12,7 +12,7 @@ It can be on a host, as a WordPress plugin or to test things locally.
 
 
 ## Installation
-Its a PHP Laravel project, so first you need to install `Composer` then run this command in `CMD`:
+Its a PHP Laravel project, so first you need to install `Composer` and then run this command in `CMD`:
 ```bash
 composer create-project laravel/laravel api_resource
 ```
@@ -71,7 +71,7 @@ If you're on localhost, you have two options to initialize the project:
 ```bash
   GET /initialize
 ```
- - Or simply run a custom console command:
+ - Or simply run a custom artisan console command, `project:init`:
   ```bash
   php artisan project:init
 ```
@@ -97,6 +97,20 @@ If you don't want to reset your database data and initialize the project anymore
 ```bash
   Route::get('initialize', [Controller::class, 'initialize']);
 ```
+## Deployment
+
+To start the project on the server, just open your website:
+
+```bash
+  GET /
+```
+
+Or run an artisan command on localhost:
+```bash
+  php artisan serve
+```
+
+
 ## API Reference
 
 ### Resources
@@ -163,7 +177,7 @@ I use `JWT tokens` to authenticate and authorize users.
 On the backend, I use `middlewares` to handle users accessing endpoint routes.
 
 #### Application state container
-Redux is an open-source JavaScript library for managing and centralizing application state. Redux is used for notifications, current user properties, current page the user is in and so on.
+Redux is an open-source JavaScript library for managing and centralizing application state. Redux is used for notifications, current user properties, current page the user is in, and so on.
 
 #### UI
 The project utilizes [coreui](https://coreui.io/) which is a free Bootstrap Admin Dashboard Template, and I made some changes to it.
@@ -180,7 +194,7 @@ For frontend validation, the project uses Yup which is a schema builder for runt
 - Service layer
 - Repository pattern
 - Middleware
-- Service container bindinng
+- Service container binding
 - Route model binding
 - Migration
 - Database seeding
