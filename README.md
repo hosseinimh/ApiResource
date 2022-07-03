@@ -162,8 +162,47 @@ As API calls are stateless, sessions can't be used to identify users.
 I use `JWT tokens` to authenticate and authorize users.
 On the backend, I use `middlewares` to handle users accessing endpoint routes.
 
+#### Application state container
+Redux is an open-source JavaScript library for managing and centralizing application state. Redux is used for notifications, current user properties, current page the user is in and so on.
+
 #### UI
 The project utilizes [coreui](https://coreui.io/) which is a free Bootstrap Admin Dashboard Template, and I made some changes to it.
+
+For frontend validation, the project uses Yup which is a schema builder for runtime value parsing and validation.
+
+### Programming languages
+- PHP 8.0
+- Laravel framework 8.65
+- React 17.0.2
+
+### Technologies & features
+- MVC architecture
+- Service layer
+- Repository pattern
+- Middleware
+- Service container bindinng
+- Route model binding
+- Migration
+- Database seeding
+- Model factory
+- JSON Web Token (JWT)
+- Artisan CLI
+- Custom console command
+- Custom request validator
+- Storage
+- Symbolic links
+- Exception handling
+- Error logging
+- Localization
+- Redux
+- React Router
+- Axios
+- Yup
+- Local storage
+- Bootstrap
+
+
+
 
 
 ## Authors
