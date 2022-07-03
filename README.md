@@ -110,7 +110,11 @@ Or run an artisan command on localhost:
   php artisan serve
 ```
 
+As mentioned before, default credentials are:
 
+**username:** admin
+
+**passwrod:** 1234
 ## API Reference
 
 ### Resources
@@ -177,7 +181,7 @@ I use `JWT tokens` to authenticate and authorize users.
 On the backend, I use `middlewares` to handle users accessing endpoint routes.
 
 #### Application state container
-Redux is an open-source JavaScript library for managing and centralizing application state. Redux is used for notifications, current user properties, current page the user is in, and so on.
+Redux is an open-source JavaScript library for managing and centralizing application state. Redux is used for notifications, the current user properties, the current page the user is in, and so on.
 
 #### UI
 The project utilizes [coreui](https://coreui.io/) which is a free Bootstrap Admin Dashboard Template, and I made some changes to it.
