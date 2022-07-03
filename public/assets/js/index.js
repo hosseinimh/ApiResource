@@ -3086,7 +3086,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var LOCALHOST = 1; // set 1 if you're running the project on localhost, otherwise 0
 
-var SERVER_URL = LOCALHOST === 1 ? "http://127.0.0.1:8000/api" : "https://hosseinimh.com/api";
+var SERVER_URL = LOCALHOST === 1 ? "http://127.0.0.1:8000/api" : "https://api-resource.hosseinimh.com/api";
 var DASHBOARD_API_URLS = {
   FETCH_REVIEW: "".concat(SERVER_URL, "/dashboard/review")
 };

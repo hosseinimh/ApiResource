@@ -3,7 +3,7 @@ const LOCALHOST = 1; // set 1 if you're running the project on localhost, otherw
 export const SERVER_URL =
     LOCALHOST === 1
         ? "http://127.0.0.1:8000/api"
-        : "https://hosseinimh.com/api";
+        : "https://api-resource.hosseinimh.com/api";
 
 export const DASHBOARD_API_URLS = {
     FETCH_REVIEW: `${SERVER_URL}/dashboard/review`,

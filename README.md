@@ -12,12 +12,12 @@ It can be on a host, as a WordPress plugin or to test things locally.
 
 
 ## Installation
-Its a PHP Laravel project, so first you need to install Composer then run this command in CMD:
+Its a PHP Laravel project, so first you need to install `Composer` then run this command in `CMD`:
 ```bash
 composer create-project laravel/laravel api_resource
 ```
 
-The project uses React.JS as a frontend framework, so you need to install `NPM` first then run this command in CMD:
+The project uses React.JS as a frontend framework, so you need to install `NPM` first then run this command in `CMD`:
 ```bash
 npm run watch
 ```
@@ -50,14 +50,14 @@ Set `$localhost = 0;`  in `index.php`, in case you're running the project on a s
 
 ### JS Configuration
 If you're running the project on a server, open `resources/js/constants/apiUrls.js`,
-modify `LOCALHOST` value to 0 and `https://hosseinimh.com` to your server URL:
+modify `LOCALHOST` value to 0 and `https://api-resource.hosseinimh.com` to your server URL:
 ```bash
 const LOCALHOST = 1; // set 1 if you're running the project on localhost, otherwise 0
 
 export const SERVER_URL =
     LOCALHOST === 1
         ? "http://127.0.0.1:8000/api"
-        : "https://hosseinimh.com/api";
+        : "https://api-resource.hosseinimh.com/api";
 ```
 
 #### Initialization
@@ -152,7 +152,7 @@ The coding schema of the project is shown in the picture below:
 ![Logo](https://api-resource.hosseinimh.com/github/img/architecture1.jpg)
 
 The project uses `API Resources` as `Repositories` to standardize responses.
-It also utilizes Laravel ORM Laravel, Eloquents, for readability and integration.
+It also utilizes Laravel ORM Laravel, `Eloquent`, for readability and integration.
 
 #### Database
 The project uses `MySQL` which is an open-source relational database management system.
