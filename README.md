@@ -27,10 +27,10 @@ npm run watch
 
 -   Server
 
-To run on a server, move all folders and files except `public` to a new folder, named `frm` for example.
-It should be one level upper than the `public` folder for security reasons.
+To run on a server, move all directories and files except `public` to a new directory, named `frm` for example.
+It should be one level upper than the `public` directory for security reasons.
 
-Open `.env` file in `frm` folder, and set database name, username and password of your database connection:
+Open `.env` file in `frm` directory, and set database name, username and password of your database connection:
 
 ```bash
 DB_DATABASE=api_resource
@@ -38,7 +38,7 @@ DB_USERNAME=root
 DB_PASSWORD=123456
 ```
 
-Move content of `public` folder to `public_html`.
+Move content of `public` directory to `public_html`.
 
 -   Server & localhost
 
