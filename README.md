@@ -49,6 +49,12 @@ Set `$localhost = 0;` in `index.php`, in case you're running the project on a se
   $framework = $localhost === 1 ? '//../' : '//../frm/';
 ```
 
+Set server url at line 7 in `app/Constants/Theme.php`:
+
+```bash
+  const BASE_URL = 'http://127.0.0.1:8000/';
+```
+
 ### JS Configuration
 
 If you're running the project on a server, open `resources/js/constants/apiUrls.js`,

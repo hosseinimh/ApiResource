@@ -5556,10 +5556,10 @@ var Books = function Books() {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("div", {
                 className: "separator"
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("a", {
-                href: "/img/books/".concat(item === null || item === void 0 ? void 0 : item.image),
+                href: item === null || item === void 0 ? void 0 : item.image,
                 target: "_blank",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)("img", {
-                  src: "/img/books/".concat(item === null || item === void 0 ? void 0 : item.image),
+                  src: item === null || item === void 0 ? void 0 : item.image,
                   className: "mb-2",
                   style: {
                     width: "100px"

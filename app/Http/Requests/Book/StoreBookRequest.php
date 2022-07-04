@@ -21,7 +21,6 @@ class StoreBookRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:50',
-            'image' => 'max:100',
             'description' => 'max:1000',
             'extra_info' => 'max:1000',
             'category_id' => 'required|numeric|gt:0',
@@ -35,7 +34,6 @@ class StoreBookRequest extends FormRequest
             'name.required' => __('book.name_required'),
             'name.min' => __('book.name_min'),
             'name.max' => __('book.name_max'),
-            'image.max' => __('book.image_max'),
             'description.max' => __('book.description_max'),
             'extra_info.max' => __('book.extra_info_max'),
             'category_id.required' => __('book.category_id_required'),

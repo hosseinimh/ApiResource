@@ -4,7 +4,7 @@ namespace App\Constants;
 
 abstract class Theme
 {
-    const BASE_URL = 'https://127.0.0.1:8000/';
+    const BASE_URL = 'http://127.0.0.1:8000/';
     const CSS_PATH = '/assets/css';
     const IMG_PATH = '/assets/img';
     const ICONS_PATH = '/assets/icons';

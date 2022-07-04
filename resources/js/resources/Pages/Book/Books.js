@@ -275,12 +275,9 @@ const Books = () => {
                         {item?.image && (
                             <>
                                 <div className="separator"></div>
-                                <a
-                                    href={`/img/books/${item?.image}`}
-                                    target={"_blank"}
-                                >
+                                <a href={item?.image} target={"_blank"}>
                                     <img
-                                        src={`/img/books/${item?.image}`}
+                                        src={item?.image}
                                         className="mb-2"
                                         style={{
                                             width: "100px",

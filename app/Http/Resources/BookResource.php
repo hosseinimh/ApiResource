@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Constants\Theme;
 
 class BookResource extends JsonResource
 {
@@ -11,7 +12,7 @@ class BookResource extends JsonResource
         return [
             'id' => intval($this->id),
             'name' => $this->name ?? '',
-            'image' => $this->image ?? '',
+            'image' => $this->image ? Theme::BASE_URL . 'img/books/' . $this->image : '',
             'description' => $this->description ?? '',
             'extraInfo' => $this->extra_info ?? '',
             'categoryId' => intval($this->category_id),
