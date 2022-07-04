@@ -12,11 +12,26 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
+    /**
+     * Returns a list of paginated books.
+     *
+     * @param  App\Http\Requests\Book\IndexBooksRequest $request
+     * @return Illuminate\Http\JsonResponse
+     * @throws Illuminate\Validation\ValidationException when $request is not matching the format.
+     * @method POST
+     */
     public function index(IndexBooksRequest $request)
     {
         return $this->handleJsonResponse($this->service->getPagination($request->name, $request->category_id, $request->page));
     }
 
+    /**
+     * Returns a list of all books.
+     *
+     * @param  App\Http\Requests\Book\IndexBooksRequest $request
+     * @return json
+     * @method GET
+     */
     public function indexApi()
     {
         $data = $this->service->getAll();
