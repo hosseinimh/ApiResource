@@ -258,7 +258,7 @@ For frontend validation, the project uses Yup which is a schema builder for runt
 
 ## Live demo
 
--   [@http://api-resource.hosseinimh.com](http://api-resource.hosseinimh.com)
+-   [http://api-resource.hosseinimh.com](http://api-resource.hosseinimh.com)
 
 ## Authors
 
