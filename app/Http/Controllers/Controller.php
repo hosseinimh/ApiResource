@@ -61,6 +61,10 @@ class Controller extends BaseController
         echo 'Cache cleared successfully.';
         echo '<br/>';
 
+        Artisan::call('migrate:fresh');
+        echo 'Database tables created successfully.';
+        echo '<br/>';
+
         $files = glob(storage_path('app') . '/public/img/books/*');
 
         foreach ($files as $file) {
@@ -72,13 +76,12 @@ class Controller extends BaseController
         echo 'Old uploaded files deleted successfully.';
         echo '<br/>';
 
-        Artisan::call('storage:link');
-        echo 'Symbolic links created successfully.';
-        echo '<br/>';
-
-        Artisan::call('migrate:fresh');
-        echo 'Database tables created successfully.';
-        echo '<br/>';
+        try {
+            Artisan::call('storage:link');
+            echo 'Symbolic links created successfully.';
+            echo '<br/>';
+        } catch (\Error) {
+        }
 
         User::factory()->create();
         echo '1 user created successfully.';

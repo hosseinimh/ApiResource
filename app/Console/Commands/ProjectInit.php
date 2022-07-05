@@ -54,6 +54,10 @@ class ProjectInit extends Command
         $this->info('Cache was cleared successfully.');
         $this->info('');
 
+        Artisan::call('migrate:fresh');
+        $this->info('Database tables were created successfully.');
+        $this->info('');
+
         $files = glob(storage_path('app') . '/public/img/books/*');
 
         foreach ($files as $file) {
@@ -67,10 +71,6 @@ class ProjectInit extends Command
 
         Artisan::call('storage:link');
         $this->info('Symbolic links were created successfully.');
-        $this->info('');
-
-        Artisan::call('migrate:fresh');
-        $this->info('Database tables were created successfully.');
         $this->info('');
 
         User::factory()->create();
